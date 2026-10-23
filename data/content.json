@@ -1,32 +1,80 @@
 {
   "hero": {
+    "eyebrow": "Boise · Treasure Valley",
     "headline": ["Train together.", "Race together."],
     "text": "City of Trees Triathlon Club brings swimmers, cyclists, and runners across the Treasure Valley together, whether it's your first sprint or your next Ironman.",
     "primary": { "label": "Join the Team", "href": "/join" },
     "secondary": { "label": "See Group Workouts", "href": "/workouts" },
-    "logo": "logo/ctoc-mark.svg",
+    "chips": ["Swim", "Bike", "Run"],
     "photo": { "src": "images/finish.jpg", "alt": "A triathlete crossing the finish line with arms out" }
   },
+  "disciplines": {
+    "eyebrow": "What we do",
+    "title": "Three sports. One crew.",
+    "text": "Group sessions are added to the schedule as they're planned. Show up for one sport or all three.",
+    "items": [
+      { "title": "Swim", "icon": "swim", "text": "Build comfort and speed in the water, whether it's laps in the pool or an open-water outing." },
+      { "title": "Bike", "icon": "bike", "text": "Group rides around the valley. Learn to ride in a pack and see roads you wouldn't find alone." },
+      { "title": "Run", "icon": "run", "text": "Easy miles, long runs and a few harder days, with people to keep you honest." }
+    ]
+  },
+  "about": {
+    "eyebrow": "Why City of Trees",
+    "title": "Boise's training crew",
+    "paragraphs": [
+      "Boise is called the City of Trees, and the river, the Greenbelt and the foothills put good swim, bike and run training right at our doorstep.",
+      "City of Trees Triathlon Club is for people who'd rather do that training together: beginners and veterans, sprint racers and Ironman hopefuls. Come try a session and see if it's a fit."
+    ],
+    "photo": { "src": "images/run.jpg", "alt": "A runner mid-stride during a race" }
+  },
+  "stepsTitle": "How it works",
   "steps": [
     { "title": "Join the team", "text": "Fill out the quick form and join our Strava club so you see every session." },
     { "title": "Pick a session", "text": "Check the schedule for the next ride, run, or swim and where it starts." },
     { "title": "Show up", "text": "Meet the group, move at your own pace, and make it a habit." }
   ],
   "photos": [
-    { "src": "images/bike.jpg", "alt": "A cyclist in an aero position on a road bike", "caption": "Ride" },
-    { "src": "images/run.jpg", "alt": "A runner mid-stride during a race", "caption": "Run" }
+    { "src": "images/bike.jpg", "alt": "A cyclist in an aero position on a road bike", "caption": "On the bike" },
+    { "src": "images/finish.jpg", "alt": "A triathlete crossing the finish line", "caption": "Finish line" },
+    { "src": "images/run.jpg", "alt": "A runner mid-stride during a race", "caption": "On the run" }
   ],
+  "races": [],
+  "cta": {
+    "headline": "Come try a session.",
+    "text": "Pick a ride or run from the schedule and show up. Introduce yourself and we'll take it from there.",
+    "button": { "label": "Join the Team", "href": "/join" }
+  },
   "faq": [
     { "q": "Do I need to be an experienced triathlete?", "a": "No. Beginners are welcome. Come to a session, meet people, and go at your own pace." },
-    { "q": "Where do sessions start?", "a": "Every session on the schedule lists its start location." },
+    { "q": "Where do sessions start?", "a": "Every session on the schedule lists its start location, with a directions link." },
     { "q": "What should I bring?", "a": "Water, and the gear for the sport: a helmet and a bike in good working order for rides, and comfortable running shoes for runs." },
     { "q": "How do I stay in the loop?", "a": "Join the club on Strava and check the schedule page, which is updated whenever new sessions are added." }
   ],
+  "workoutsPage": {
+    "eyebrow": "Schedule",
+    "title": "Group workouts",
+    "intro": "Upcoming rides, runs and swims. Tap Directions for the start location or Add to calendar to save it.",
+    "notesTitle": "Good to know",
+    "notes": [
+      "Arrive a few minutes early so we can start on time.",
+      "Bring water, and a helmet for rides.",
+      "Plans change. Check the Strava club for last-minute updates."
+    ]
+  },
   "footer": {
     "enabled": true,
     "logo": "logo/ctoc-lockup-light.svg",
     "tagline": "Triathlon training and community in the Treasure Valley.",
     "button": { "label": "Join our Strava club", "href": "https://strava.app.link/RnvyvO4At7b" },
+    "nav": [
+      { "label": "Home", "href": "/" },
+      { "label": "Group workouts", "href": "/workouts" },
+      { "label": "Join the team", "href": "/join" }
+    ],
+    "social": [
+      { "label": "Strava club", "href": "https://strava.app.link/RnvyvO4At7b" },
+      { "label": "Instagram", "href": "https://www.instagram.com/boisetriathlonteam/" }
+    ],
     "copyright": "© 2026 City of Trees Triathlon Club"
   }
 }

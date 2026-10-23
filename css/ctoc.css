@@ -1,210 +1,308 @@
-/* City of Trees Triathlon Club — brand styles for Squarespace 7.1
-   Loaded via Code Injection (see snippets/header-injection.html). */
+/* City of Trees Triathlon Club — styles for the Squarespace 7.1 site.
+   Loaded from GitHub Pages via Code Injection (see snippets/header-injection.html). */
 
 :root {
   --ctoc-green: #1F4D3A;
+  --ctoc-green-deep: #143427;
   --ctoc-blue: #2A6F97;
   --ctoc-orange: #F28C28;
   --ctoc-cream: #F7F4EC;
   --ctoc-ink: #222222;
-  --ctoc-radius: 12px;
+  --ctoc-muted: #5b625e;
+  --ctoc-line: rgba(31, 77, 58, .14);
+  --ctoc-radius: 14px;
   --ctoc-head: "Barlow Condensed", "Arial Narrow", sans-serif;
   --ctoc-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ctoc-gutter: clamp(18px, 4vw, 40px);
 }
 
-/* ---------- Site-wide touches ---------- */
-body { font-family: var(--ctoc-body); color: var(--ctoc-ink); }
-h1, h2, h3, h4 {
+/* =========================================================
+   Squarespace header: solid bar, in the normal flow (no overlap)
+   ========================================================= */
+#header, header#header, .header {
+  position: relative !important;
+  background: var(--ctoc-cream) !important;
+  border-bottom: 1px solid var(--ctoc-line);
+}
+#header .header-announcement-bar-wrapper { position: relative !important; }
+#header .header-inner { padding-top: 10px !important; padding-bottom: 10px !important; min-height: 0 !important; }
+#header .header-title-logo img,
+#header .header-title-logo a img { max-height: 58px !important; width: auto !important; height: auto !important; }
+#header .header-title-logo a, #header .header-title-text a { color: var(--ctoc-green) !important; }
+#header .header-nav-item a,
+#header .header-actions a,
+#header .header-menu-nav-item a {
+  color: var(--ctoc-green) !important;
+  font-family: var(--ctoc-head) !important;
+  font-size: 1.3rem !important;
+  font-weight: 600 !important;
+  letter-spacing: .07em !important;
+  text-transform: uppercase !important;
+}
+#header .header-nav-item--active a { box-shadow: inset 0 -3px 0 var(--ctoc-orange); }
+#header .header-burger-btn span, #header .burger-inner span { background: var(--ctoc-green) !important; }
+#header svg { color: var(--ctoc-green); }
+
+/* =========================================================
+   Base
+   ========================================================= */
+#ctoc-home, #ctoc-workouts, #ctoc-next, #ctoc-site-footer {
+  font-family: var(--ctoc-body);
+  color: var(--ctoc-ink);
+  -webkit-font-smoothing: antialiased;
+}
+#ctoc-home *, #ctoc-workouts *, #ctoc-site-footer * { box-sizing: border-box; }
+#ctoc-home h1, #ctoc-home h2, #ctoc-home h3, #ctoc-home h4,
+#ctoc-workouts h1, #ctoc-workouts h2, #ctoc-workouts h3, #ctoc-workouts h4,
+#ctoc-site-footer h3 {
   font-family: var(--ctoc-head);
   font-weight: 700;
-  letter-spacing: 0.01em;
+  letter-spacing: .01em;
   text-transform: uppercase;
+  line-height: 1.02;
+  margin: 0;
 }
+#ctoc-home p, #ctoc-workouts p, #ctoc-site-footer p { margin: 0; line-height: 1.6; }
+#ctoc-home img, #ctoc-site-footer img { max-width: 100%; }
 
-/* ---------- Buttons ---------- */
+.ctoc-wrap { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 var(--ctoc-gutter); }
+.ctoc-sec { padding: clamp(44px, 7vw, 92px) 0; }
+.ctoc-sec--tint { background: var(--ctoc-cream); }
+.ctoc-eyebrow {
+  display: inline-block; font-family: var(--ctoc-head); font-weight: 600; font-size: 1.05rem;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--ctoc-orange); margin-bottom: 10px;
+}
+.ctoc-title { font-size: clamp(2.1rem, 5vw, 3.4rem); color: var(--ctoc-green); }
+.ctoc-lede { color: var(--ctoc-muted); font-size: 1.08rem; max-width: 640px; margin-top: 14px !important; }
+.ctoc-sechead { margin-bottom: clamp(24px, 4vw, 40px); }
+
+/* Buttons */
 .ctoc-btn {
-  display: inline-block;
-  font-family: var(--ctoc-head);
-  font-weight: 700;
-  font-size: 1.15rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  text-decoration: none;
-  padding: 0.8em 1.6em;
-  border-radius: 999px;
-  border: 2px solid var(--ctoc-orange);
-  background: var(--ctoc-orange);
-  color: #fff;
-  transition: transform .15s ease, box-shadow .15s ease;
+  display: inline-block; font-family: var(--ctoc-head); font-weight: 700; font-size: 1.2rem;
+  letter-spacing: .07em; text-transform: uppercase; text-decoration: none !important; line-height: 1;
+  padding: .85em 1.7em; border-radius: 999px; border: 2px solid var(--ctoc-orange);
+  background: var(--ctoc-orange); color: #fff !important; cursor: pointer;
+  transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
 }
-.ctoc-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,.18); }
-.ctoc-btn--outline { background: transparent; color: #fff; border-color: #fff; }
-.ctoc-btn--dark { background: transparent; color: var(--ctoc-green); border-color: var(--ctoc-green); }
+.ctoc-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0, 0, 0, .2); }
+.ctoc-btn--outline { background: transparent; border-color: rgba(255, 255, 255, .85); color: #fff !important; }
+.ctoc-btn--outline:hover { background: rgba(255, 255, 255, .12); }
+.ctoc-btn--dark { background: transparent; border-color: var(--ctoc-green); color: var(--ctoc-green) !important; }
+.ctoc-btn--dark:hover { background: var(--ctoc-green); color: #fff !important; }
 
-/* ---------- Hero (split: text + photo) ---------- */
-/* ---------- Feature trio ---------- */
-.ctoc-trio { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin: 28px 0; }
-.ctoc-trio__item {
-  background: var(--ctoc-cream);
-  border-top: 5px solid var(--ctoc-orange);
-  border-radius: var(--ctoc-radius);
-  padding: 22px;
-}
-.ctoc-trio__item h3 { margin: 0 0 .3em; color: var(--ctoc-green); font-size: 1.6rem; }
-.ctoc-trio__item p { margin: 0; line-height: 1.5; }
-
-/* ---------- Workout schedule ---------- */
-.ctoc-filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 22px; }
-.ctoc-filter {
-  font-family: var(--ctoc-head);
-  font-size: 1.05rem;
-  letter-spacing: .05em;
-  text-transform: uppercase;
-  padding: .45em 1.1em;
-  border-radius: 999px;
-  border: 2px solid var(--ctoc-green);
-  background: transparent;
-  color: var(--ctoc-green);
-  cursor: pointer;
-}
-.ctoc-filter[aria-pressed="true"] { background: var(--ctoc-green); color: #fff; }
-
-.ctoc-day { margin: 0 0 26px; }
-.ctoc-day__name {
-  font-family: var(--ctoc-head);
-  font-size: 1.7rem;
-  text-transform: uppercase;
-  color: var(--ctoc-green);
-  border-bottom: 3px solid var(--ctoc-cream);
-  padding-bottom: 4px;
-  margin: 0 0 12px;
-}
-.ctoc-cards { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
-.ctoc-card {
-  background: #fff;
-  border: 1px solid rgba(0,0,0,.1);
-  border-left: 6px solid var(--ctoc-blue);
-  border-radius: var(--ctoc-radius);
-  padding: 16px 18px;
-}
-.ctoc-card[data-discipline="Run"] { border-left-color: var(--ctoc-orange); }
-.ctoc-card[data-discipline="Bike"] { border-left-color: var(--ctoc-green); }
-.ctoc-card[data-discipline="Swim"] { border-left-color: var(--ctoc-blue); }
-.ctoc-card__tag {
-  display: inline-block;
-  font-size: .72rem;
-  font-weight: 700;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: var(--ctoc-blue);
-  margin-bottom: 4px;
-}
-.ctoc-card__title { font-family: var(--ctoc-head); font-size: 1.45rem; text-transform: uppercase; margin: 0 0 6px; }
-.ctoc-card__meta { margin: 0; font-size: .95rem; line-height: 1.5; }
-.ctoc-card__meta strong { font-weight: 600; }
-.ctoc-card__link { display: inline-block; margin-top: 8px; font-weight: 600; color: var(--ctoc-blue); }
-.ctoc-sample-note {
-  background: #FFF4E0; border: 1px dashed var(--ctoc-orange);
-  border-radius: 8px; padding: 10px 14px; margin: 0 0 18px; font-size: .9rem;
-}
-.ctoc-empty { padding: 24px; background: var(--ctoc-cream); border-radius: var(--ctoc-radius); text-align: center; }
-
-/* ---------- Squarespace form block polish (Join page) ---------- */
-.sqs-block-form .form-button-wrapper input[type="submit"],
-.sqs-block-form button[type="submit"] {
-  font-family: var(--ctoc-head);
-  font-weight: 700;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  background: var(--ctoc-orange) !important;
-  border-color: var(--ctoc-orange) !important;
-  color: #fff !important;
-  border-radius: 999px !important;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ctoc-btn { transition: none; }
-}
-
-
-/* =====================================================================
-   v2 additions: split hero, next-up, photo strip, steps, FAQ, footer
-   ===================================================================== */
+/* =========================================================
+   Hero
+   ========================================================= */
 .ctoc-hero {
-  display: grid;
-  grid-template-columns: 1.15fr .85fr;
-  align-items: center;
-  gap: clamp(20px, 4vw, 56px);
-  text-align: left;
-  background: linear-gradient(135deg, var(--ctoc-green) 0%, #163828 60%, var(--ctoc-blue) 140%);
-  color: #fff;
-  padding: clamp(32px, 6vw, 72px);
-  border-radius: var(--ctoc-radius);
-  overflow: hidden;
+  position: relative; overflow: hidden; color: #fff;
+  background:
+    radial-gradient(900px 420px at 85% 10%, rgba(42, 111, 151, .55), transparent 60%),
+    radial-gradient(700px 380px at 0% 100%, rgba(242, 140, 40, .16), transparent 60%),
+    linear-gradient(160deg, var(--ctoc-green) 0%, var(--ctoc-green-deep) 100%);
 }
-.ctoc-hero__mark { width: clamp(64px, 9vw, 96px); height: auto; margin-bottom: 14px; display: block; }
-.ctoc-hero h1 { font-size: clamp(2.5rem, 6.5vw, 4.8rem); line-height: 1; margin: 0 0 .35em; color: #fff; }
-.ctoc-hero p { margin: 0 0 1.6em; max-width: 520px; font-size: clamp(1rem, 2vw, 1.15rem); line-height: 1.55; color: rgba(255,255,255,.92); }
-.ctoc-hero__actions { display: flex; flex-wrap: wrap; gap: 14px; justify-content: flex-start; }
-.ctoc-hero__photo { position: relative; justify-self: center; width: min(100%, 360px); }
+.ctoc-hero::after {            /* conifer tree line along the bottom edge */
+  content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 54px; opacity: .1; pointer-events: none;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='54' viewBox='0 0 120 54'><g fill='%23F7F4EC'><polygon points='14,54 14,40 6,40 14,26 8,26 14,14 20,26 14,26 22,40 14,40'/><polygon points='52,54 52,34 40,34 52,14 44,14 52,0 60,14 52,14 64,34 52,34'/><polygon points='92,54 92,42 84,42 92,28 87,28 92,18 97,28 92,28 100,42 92,42'/></g></svg>") repeat-x bottom left / 120px 54px;
+}
+.ctoc-hero__grid {
+  position: relative; z-index: 1; display: grid; grid-template-columns: 1.1fr .9fr;
+  align-items: center; gap: clamp(28px, 5vw, 72px); padding: clamp(40px, 7vw, 88px) 0 clamp(64px, 9vw, 112px);
+}
+.ctoc-hero__mark { width: clamp(60px, 7vw, 84px); height: auto; display: block; margin-bottom: 18px; }
+.ctoc-hero .ctoc-eyebrow { color: var(--ctoc-orange); }
+.ctoc-hero h1 { font-size: clamp(2.8rem, 7vw, 5.4rem); color: #fff; margin-bottom: .28em; }
+.ctoc-hero h1 span { color: var(--ctoc-orange); }
+.ctoc-hero__text { max-width: 540px; font-size: clamp(1.02rem, 2vw, 1.18rem); color: rgba(255, 255, 255, .9); margin-bottom: 1.8em !important; }
+.ctoc-hero__actions { display: flex; flex-wrap: wrap; gap: 14px; }
+.ctoc-hero__chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+.ctoc-chip {
+  display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px 7px 10px; border-radius: 999px;
+  background: rgba(255, 255, 255, .1); border: 1px solid rgba(255, 255, 255, .22);
+  font-family: var(--ctoc-head); font-size: 1.1rem; letter-spacing: .08em; text-transform: uppercase;
+}
+.ctoc-chip svg { width: 20px; height: 20px; stroke: var(--ctoc-orange); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.ctoc-hero__photo { position: relative; justify-self: center; width: min(100%, 400px); }
 .ctoc-hero__photo::before {
-  content: ""; position: absolute; inset: 14px -14px -14px 14px;
-  border: 3px solid var(--ctoc-orange); border-radius: var(--ctoc-radius);
+  content: ""; position: absolute; inset: 16px -16px -16px 16px; border: 3px solid var(--ctoc-orange); border-radius: var(--ctoc-radius);
 }
 .ctoc-hero__photo img {
-  position: relative; display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 20%;
-  border-radius: var(--ctoc-radius);
-}
-@media (max-width: 760px) {
-  .ctoc-hero { grid-template-columns: 1fr; text-align: center; }
-  .ctoc-hero p { margin-left: auto; margin-right: auto; }
-  .ctoc-hero__mark { margin-left: auto; margin-right: auto; }
-  .ctoc-hero__actions { justify-content: center; }
-  .ctoc-hero__photo { width: min(78%, 300px); margin: 8px auto 14px; }
+  position: relative; display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 18%;
+  border-radius: var(--ctoc-radius); box-shadow: 0 24px 50px rgba(0, 0, 0, .35);
 }
 
-/* Next up strip */
-#ctoc-next { margin: 32px 0; }
-.ctoc-next__head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
-.ctoc-next__head h3 { margin: 0; font-size: 2rem; color: var(--ctoc-green); }
-.ctoc-next__head a { font-weight: 600; color: var(--ctoc-blue); text-decoration: none; }
-
-/* Photo strip */
-.ctoc-photos { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin: 32px 0; }
-.ctoc-photos figure { margin: 0; position: relative; border-radius: var(--ctoc-radius); overflow: hidden; background: var(--ctoc-green); }
-.ctoc-photos img { display: block; width: 100%; height: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
-.ctoc-photos figcaption {
-  position: absolute; left: 0; right: 0; bottom: 0; padding: 40px 16px 14px;
-  background: linear-gradient(transparent, rgba(0,0,0,.65));
-  color: #fff; font-family: var(--ctoc-head); font-size: 1.5rem; letter-spacing: .04em; text-transform: uppercase;
+/* =========================================================
+   Cards (sessions)
+   ========================================================= */
+.ctoc-cards { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+.ctoc-card {
+  display: flex; gap: 16px; background: #fff; border: 1px solid var(--ctoc-line);
+  border-radius: var(--ctoc-radius); padding: 18px; box-shadow: 0 1px 2px rgba(0, 0, 0, .04);
+  transition: transform .18s ease, box-shadow .18s ease;
 }
+.ctoc-card:hover { transform: translateY(-3px); box-shadow: 0 12px 26px rgba(20, 52, 39, .12); }
+.ctoc-card__date {
+  flex: 0 0 66px; height: 74px; border-radius: 10px; background: var(--ctoc-green); color: #fff; text-align: center;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1;
+}
+.ctoc-card[data-discipline="Run"] .ctoc-card__date { background: var(--ctoc-orange); }
+.ctoc-card[data-discipline="Swim"] .ctoc-card__date { background: var(--ctoc-blue); }
+.ctoc-card__mon { font-family: var(--ctoc-head); font-size: 1.05rem; letter-spacing: .12em; text-transform: uppercase; opacity: .92; }
+.ctoc-card__day { font-family: var(--ctoc-head); font-size: 2.2rem; font-weight: 700; margin-top: 2px; }
+.ctoc-card__wk { font-family: var(--ctoc-head); font-size: .95rem; letter-spacing: .08em; text-transform: uppercase; font-weight: 600; }
+.ctoc-card__body { min-width: 0; flex: 1; }
+.ctoc-card__tag { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ctoc-blue); }
+.ctoc-card__title { font-size: 1.7rem; color: var(--ctoc-ink); margin: 3px 0 6px !important; }
+.ctoc-card__meta { font-size: .95rem; color: var(--ctoc-muted); line-height: 1.5; }
+.ctoc-card__meta strong { color: var(--ctoc-ink); font-weight: 600; }
+.ctoc-card__links { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 10px; }
+.ctoc-card__links a { font-size: .88rem; font-weight: 600; color: var(--ctoc-blue) !important; text-decoration: none !important; border-bottom: 1px solid transparent; }
+.ctoc-card__links a:hover { border-bottom-color: currentColor; }
 
-/* How it works */
-.ctoc-steps { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); counter-reset: ctocstep; margin: 32px 0; }
-.ctoc-step { background: var(--ctoc-cream); border-radius: var(--ctoc-radius); padding: 24px 22px 22px; position: relative; counter-increment: ctocstep; }
+.ctoc-next__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
+.ctoc-next__head a { font-weight: 600; color: var(--ctoc-blue) !important; text-decoration: none !important; white-space: nowrap; }
+
+/* Schedule page */
+.ctoc-page { padding: clamp(36px, 6vw, 72px) 0 clamp(48px, 7vw, 96px); }
+.ctoc-filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 24px; }
+.ctoc-filter {
+  font-family: var(--ctoc-head); font-size: 1.15rem; letter-spacing: .06em; text-transform: uppercase;
+  padding: .45em 1.2em; border-radius: 999px; border: 2px solid var(--ctoc-green); background: transparent; color: var(--ctoc-green); cursor: pointer;
+}
+.ctoc-filter[aria-pressed="true"] { background: var(--ctoc-green); color: #fff; }
+.ctoc-sample-note { background: #FFF4E0; border: 1px dashed var(--ctoc-orange); border-radius: 8px; padding: 10px 14px; margin: 0 0 18px !important; font-size: .9rem; }
+.ctoc-empty { padding: 28px; background: var(--ctoc-cream); border-radius: var(--ctoc-radius); text-align: center; color: var(--ctoc-muted); }
+.ctoc-notes { margin-top: 40px; padding: 22px 24px; border-radius: var(--ctoc-radius); background: var(--ctoc-cream); border-left: 5px solid var(--ctoc-orange); }
+.ctoc-notes h3 { font-size: 1.6rem; color: var(--ctoc-green); margin-bottom: 8px !important; }
+.ctoc-notes ul { margin: 0; padding-left: 1.2em; line-height: 1.7; }
+
+/* =========================================================
+   Disciplines
+   ========================================================= */
+.ctoc-trio { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.ctoc-trio__item { background: #fff; border: 1px solid var(--ctoc-line); border-radius: var(--ctoc-radius); padding: 26px 24px; position: relative; overflow: hidden; }
+.ctoc-trio__item::before { content: ""; position: absolute; left: 0; top: 0; right: 0; height: 5px; background: var(--ctoc-orange); }
+.ctoc-trio__item[data-k="swim"]::before { background: var(--ctoc-blue); }
+.ctoc-trio__item[data-k="bike"]::before { background: var(--ctoc-green); }
+.ctoc-ico {
+  width: 54px; height: 54px; border-radius: 14px; background: var(--ctoc-cream); display: grid; place-items: center; margin-bottom: 16px;
+}
+.ctoc-ico svg { width: 30px; height: 30px; stroke: var(--ctoc-green); fill: none; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.ctoc-trio__item h3 { font-size: 1.9rem; color: var(--ctoc-green); margin-bottom: 8px !important; }
+.ctoc-trio__item p { color: var(--ctoc-muted); }
+
+/* =========================================================
+   About (split)
+   ========================================================= */
+.ctoc-about { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(28px, 5vw, 72px); align-items: center; }
+.ctoc-about__photo { position: relative; }
+.ctoc-about__photo img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--ctoc-radius); }
+.ctoc-about__photo::after {
+  content: ""; position: absolute; width: 38%; aspect-ratio: 1; right: -14px; bottom: -14px; z-index: -1; border-radius: var(--ctoc-radius); background: var(--ctoc-orange); opacity: .9;
+}
+.ctoc-about__body p { color: var(--ctoc-muted); font-size: 1.08rem; margin-top: 16px !important; }
+.ctoc-about__body .ctoc-title { margin-bottom: 4px; }
+.ctoc-about__by { font-family: var(--ctoc-head); font-size: 1.3rem; letter-spacing: .06em; text-transform: uppercase; color: var(--ctoc-green); margin-top: 22px !important; }
+
+/* =========================================================
+   Steps
+   ========================================================= */
+.ctoc-steps { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); counter-reset: ctocstep; }
+.ctoc-step { position: relative; padding: 4px 4px 4px 0; counter-increment: ctocstep; }
 .ctoc-step::before {
-  content: counter(ctocstep);
-  display: inline-grid; place-items: center; width: 42px; height: 42px; border-radius: 50%;
-  background: var(--ctoc-green); color: #fff; font-family: var(--ctoc-head); font-size: 1.5rem; font-weight: 700; margin-bottom: 10px;
+  content: counter(ctocstep, decimal-leading-zero); display: block; font-family: var(--ctoc-head); font-weight: 700; font-size: 4.2rem; line-height: .9;
+  color: transparent; -webkit-text-stroke: 2px var(--ctoc-orange); margin-bottom: 8px;
 }
-.ctoc-step h3 { margin: 0 0 .25em; color: var(--ctoc-green); font-size: 1.6rem; }
-.ctoc-step p { margin: 0; line-height: 1.5; }
+.ctoc-step h3 { font-size: 1.8rem; color: var(--ctoc-green); margin-bottom: 8px !important; }
+.ctoc-step p { color: var(--ctoc-muted); }
 
-/* FAQ */
-.ctoc-faq { margin: 32px 0; }
-.ctoc-faq h2 { color: var(--ctoc-green); margin: 0 0 12px; }
-.ctoc-faq details { border-bottom: 1px solid rgba(0,0,0,.12); padding: 14px 4px; }
-.ctoc-faq summary { cursor: pointer; font-weight: 600; font-size: 1.05rem; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+/* =========================================================
+   Gallery
+   ========================================================= */
+.ctoc-photos { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.ctoc-photos figure { margin: 0; position: relative; border-radius: var(--ctoc-radius); overflow: hidden; background: var(--ctoc-green); }
+.ctoc-photos img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; transition: transform .5s ease; }
+.ctoc-photos figure:hover img { transform: scale(1.04); }
+.ctoc-photos figcaption {
+  position: absolute; left: 0; right: 0; bottom: 0; padding: 48px 18px 16px; color: #fff; text-transform: uppercase;
+  background: linear-gradient(transparent, rgba(0, 0, 0, .68)); font-family: var(--ctoc-head); font-size: 1.6rem; letter-spacing: .05em;
+}
+
+/* Races list */
+.ctoc-races { display: grid; gap: 12px; }
+.ctoc-race { display: flex; align-items: center; gap: 18px; padding: 16px 20px; background: #fff; border: 1px solid var(--ctoc-line); border-radius: var(--ctoc-radius); }
+.ctoc-race__when { flex: 0 0 120px; font-family: var(--ctoc-head); font-size: 1.4rem; color: var(--ctoc-orange); text-transform: uppercase; letter-spacing: .05em; }
+.ctoc-race__name { font-family: var(--ctoc-head); font-size: 1.6rem; text-transform: uppercase; color: var(--ctoc-green); }
+.ctoc-race__meta { color: var(--ctoc-muted); font-size: .95rem; }
+.ctoc-race a { margin-left: auto; font-weight: 600; color: var(--ctoc-blue) !important; text-decoration: none !important; white-space: nowrap; }
+
+/* =========================================================
+   CTA band
+   ========================================================= */
+.ctoc-cta { background: var(--ctoc-green); color: #fff; text-align: center; position: relative; overflow: hidden; }
+.ctoc-cta::before {
+  content: ""; position: absolute; width: 520px; height: 520px; border-radius: 50%; right: -160px; top: -240px; background: rgba(42, 111, 151, .45);
+}
+.ctoc-cta .ctoc-wrap { position: relative; }
+.ctoc-cta h2 { font-size: clamp(2.4rem, 6vw, 4rem); color: #fff; margin-bottom: 14px !important; }
+.ctoc-cta p { color: rgba(255, 255, 255, .88); max-width: 560px; margin: 0 auto 28px !important; font-size: 1.1rem; }
+
+/* =========================================================
+   FAQ
+   ========================================================= */
+.ctoc-faq { max-width: 820px; }
+.ctoc-faq details { border-bottom: 1px solid var(--ctoc-line); padding: 18px 2px; }
+.ctoc-faq summary { cursor: pointer; font-weight: 600; font-size: 1.1rem; list-style: none; display: flex; justify-content: space-between; gap: 16px; align-items: center; }
 .ctoc-faq summary::-webkit-details-marker { display: none; }
-.ctoc-faq summary::after { content: "+"; color: var(--ctoc-orange); font-size: 1.5rem; line-height: 1; }
-.ctoc-faq details[open] summary::after { content: "\2212"; }
-.ctoc-faq details p { margin: 10px 0 0; line-height: 1.55; }
+.ctoc-faq summary::after { content: "+"; color: var(--ctoc-orange); font-size: 1.8rem; line-height: 1; transition: transform .2s ease; }
+.ctoc-faq details[open] summary::after { transform: rotate(45deg); }
+.ctoc-faq details p { margin-top: 10px !important; color: var(--ctoc-muted); }
 
-/* Footer band */
-.ctoc-footer {
-  background: var(--ctoc-green); color: #fff; border-radius: var(--ctoc-radius);
-  padding: 32px 24px; text-align: center; margin-top: 32px;
+/* =========================================================
+   Footer
+   ========================================================= */
+.ctoc-footer { background: var(--ctoc-green-deep); color: #fff; padding: clamp(40px, 6vw, 72px) 0 28px; margin-top: 0; }
+.ctoc-footer__grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 32px; }
+.ctoc-footer__brand img { width: min(100%, 330px); height: auto; display: block; margin-bottom: 14px; }
+.ctoc-footer__brand p { color: rgba(255, 255, 255, .8); max-width: 340px; margin-bottom: 18px !important; }
+.ctoc-footer h3 { font-size: 1.25rem; letter-spacing: .14em; color: var(--ctoc-orange); margin-bottom: 14px !important; }
+.ctoc-footer ul { list-style: none; margin: 0; padding: 0; }
+.ctoc-footer li { margin: 0 0 10px; }
+.ctoc-footer li a { color: #fff !important; text-decoration: none !important; opacity: .88; }
+.ctoc-footer li a:hover { opacity: 1; text-decoration: underline !important; }
+.ctoc-footer small { display: block; margin-top: 34px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, .14); color: rgba(255, 255, 255, .6); }
+
+/* Reveal on scroll */
+.ctoc-reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+.ctoc-reveal.is-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .ctoc-reveal { opacity: 1; transform: none; transition: none; }
+  .ctoc-btn, .ctoc-card, .ctoc-photos img { transition: none; }
 }
-.ctoc-footer img { width: min(100%, 420px); height: auto; margin: 0 auto 14px; display: block; }
-.ctoc-footer p { margin: 0 0 14px; color: rgba(255,255,255,.88); }
-.ctoc-footer small { display: block; margin-top: 16px; opacity: .7; }
+
+/* Squarespace form block polish (Join page) */
+.sqs-block-form .form-button-wrapper input[type="submit"],
+.sqs-block-form button[type="submit"] {
+  font-family: var(--ctoc-head) !important; font-weight: 700 !important; letter-spacing: .07em !important; text-transform: uppercase !important;
+  background: var(--ctoc-orange) !important; border-color: var(--ctoc-orange) !important; color: #fff !important; border-radius: 999px !important;
+}
+
+/* =========================================================
+   Responsive
+   ========================================================= */
+@media (max-width: 860px) {
+  .ctoc-hero__grid { grid-template-columns: 1fr; text-align: center; padding-bottom: 80px; }
+  .ctoc-hero__text { margin-left: auto; margin-right: auto; }
+  .ctoc-hero__mark { margin-left: auto; margin-right: auto; }
+  .ctoc-hero__actions, .ctoc-hero__chips { justify-content: center; }
+  .ctoc-hero__photo { width: min(72%, 320px); margin: 6px auto 12px; order: -1; }
+  .ctoc-about { grid-template-columns: 1fr; }
+  .ctoc-about__photo { max-width: 360px; margin: 0 auto 8px; }
+  .ctoc-footer__grid { grid-template-columns: 1fr 1fr; }
+  .ctoc-footer__brand { grid-column: 1 / -1; }
+}
+@media (max-width: 520px) {
+  .ctoc-cards { grid-template-columns: 1fr; }
+  .ctoc-race { flex-wrap: wrap; gap: 6px 14px; }
+  .ctoc-race a { margin-left: 0; }
+  .ctoc-next__head { flex-direction: column; align-items: flex-start; }
+}
