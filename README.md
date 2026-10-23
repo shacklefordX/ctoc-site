@@ -1,7 +1,9 @@
 # City of Trees Triathlon Club — website code
 
 Squarespace 7.1 doesn't have Developer Mode, so this repo holds the custom code and Squarespace loads it through
-**Code Injection** via the jsDelivr CDN. Edit, push to GitHub, site updates.
+**Code Injection** from **GitHub Pages** (https://shacklefordx.github.io/ctoc-site/). Edit, push to GitHub, site updates in about a minute.
+
+One-time: repo Settings → Pages → Source: Deploy from a branch → `main` / (root).
 
 ## Layout
 - `css/ctoc.css` — brand styles (green / blue / orange, Barlow Condensed + Inter)
@@ -24,7 +26,7 @@ Squarespace 7.1 doesn't have Developer Mode, so this repo holds the custom code 
 - **Schedule:** edit `data/workouts.json`. Dated sessions (`"date": "2026-11-07"`) vanish the day after; weekly ones use `"day": "Tuesday"`.
 - **Copy, FAQ, steps, photos, footer:** edit `data/content.json`. Add images to `images/` and reference them as `images/name.jpg`.
 - **Look and feel:** edit `css/ctoc.css`.
-- Commit and push to `main`. A GitHub Action purges the CDN cache, so the site updates in about a minute.
+- Commit and push to `main`. GitHub Pages republishes in about a minute (browsers may cache files up to ~10 minutes).
 
 ## Notes
 - Code Injection requires a Squarespace Business plan or higher.
