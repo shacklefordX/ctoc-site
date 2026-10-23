@@ -1,34 +1,24 @@
 {
-  "sample": true,
+  "sample": false,
   "workouts": [
     {
-      "day": "Tuesday",
-      "discipline": "Run",
-      "title": "Greenbelt Easy Run",
-      "time": "6:00 AM",
-      "location": "Boise Greenbelt (meeting spot TBD)",
-      "level": "All paces",
-      "notes": "Conversational pace, 4-6 miles. Groups form at the start.",
-      "link": ""
-    },
-    {
-      "day": "Thursday",
-      "discipline": "Swim",
-      "title": "Masters-Style Swim",
-      "time": "6:00 AM",
-      "location": "Pool TBD",
-      "level": "All levels",
-      "notes": "Lane groups by speed. Bring goggles and a kickboard.",
-      "link": ""
-    },
-    {
-      "day": "Saturday",
+      "date": "2026-10-31",
       "discipline": "Bike",
-      "title": "Saturday Group Ride",
-      "time": "8:00 AM",
-      "location": "Start location TBD",
-      "level": "Two pace groups",
-      "notes": "Helmets required. No-drop for the beginner group.",
+      "title": "Halloween Ride",
+      "time": "10:00 AM",
+      "duration": "90 minutes",
+      "location": "Merrill Park",
+      "notes": "Starts at Merrill Park.",
+      "link": ""
+    },
+    {
+      "date": "2026-11-01",
+      "discipline": "Run",
+      "title": "Group Run",
+      "time": "10:00 AM",
+      "duration": "60 minutes",
+      "location": "Merrill Park",
+      "notes": "Starts at Merrill Park.",
       "link": ""
     }
   ]

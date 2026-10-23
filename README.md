@@ -7,6 +7,8 @@ Squarespace 7.1 doesn't have Developer Mode, so this repo holds the custom code 
 - `css/ctoc.css` — brand styles (green / blue / orange, Barlow Condensed + Inter)
 - `js/ctoc.js` — renders the workout schedule from JSON
 - `data/workouts.json` — **edit this to change the schedule** (set `"sample": false` when real)
+- `images/` — site photos (served through the CDN)
+- `logo/` — logo mark and lockups (SVG + PNG)
 - `snippets/` — copy/paste HTML for Code Injection and Code Blocks
 
 ## One-time setup
@@ -16,12 +18,13 @@ Squarespace 7.1 doesn't have Developer Mode, so this repo holds the custom code 
 3. Squarespace → Website Tools → Advanced → Code Injection:
    paste `header-injection.html` in Header, `footer-injection.html` in Footer.
 4. Site Styles: set the palette (`#1F4D3A`, `#2A6F97`, `#F28C28`, `#F7F4EC`, `#222222`) and fonts to match.
-5. Add Code Blocks (Display Source OFF) from `home-hero-block.html` and `workouts-block.html`;
+5. Add Code Blocks (Display Source OFF) from `home-hero-block.html`, `faq-block.html`, `footer-block.html` and `workouts-block.html`;
    add a Form block + `join-block.html` on the Join page.
 
 ## Updating
-Edit `data/workouts.json`, commit, push. jsDelivr caches `@main` for a while;
-to refresh immediately, open `https://purge.jsdelivr.net/gh/shacklefordX/ctoc-site@main/data/workouts.json`,
+Edit `data/workouts.json`, commit, push. A GitHub Action purges the CDN cache on every push.
+Sessions with a `"date"` disappear automatically after that day; sessions with `"day"` (e.g. `"Tuesday"`) repeat weekly.
+To refresh by hand, open `https://purge.jsdelivr.net/gh/shacklefordX/ctoc-site@main/data/workouts.json`,
 or switch the snippets to a tagged release (`@v1.0.1`) for instant, cache-proof updates.
 
 ## Notes

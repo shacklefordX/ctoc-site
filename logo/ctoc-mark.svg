@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" role="img" aria-label="City of Trees Triathlon Club"><g>
+  <defs><clipPath id="mclip"><circle cx="100" cy="100" r="90"/></clipPath></defs>
+  <circle cx="100" cy="100" r="98" fill="#F7F4EC"/>
+  <circle cx="100" cy="100" r="94" fill="#1F4D3A"/>
+  <g clip-path="url(#mclip)">
+    <circle cx="100" cy="70" r="32" fill="#F28C28"/>
+    <g fill="#F7F4EC" stroke="#F7F4EC" stroke-width="6" stroke-linejoin="round">
+      <polygon points="100,36 126,80 74,80"/>
+      <polygon points="100,56 136,104 64,104"/>
+      <polygon points="100,78 146,130 54,130"/>
+    </g>
+    <path d="M0,150 q16,-11 32,0 t32,0 t32,0 t32,0 t32,0 t32,0 t32,0 V200 H0Z" fill="#2A6F97"/>
+    <path d="M0,166 q16,-9 32,0 t32,0 t32,0 t32,0 t32,0 t32,0 t32,0" fill="none" stroke="#F7F4EC" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+    <path d="M0,182 q16,-9 32,0 t32,0 t32,0 t32,0 t32,0 t32,0 t32,0" fill="none" stroke="#F7F4EC" stroke-width="3" stroke-linecap="round" opacity=".45"/>
+    <rect x="94" y="128" width="12" height="26" rx="2" fill="#F28C28"/>
+  </g>
+</g></svg>
