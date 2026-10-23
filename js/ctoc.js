@@ -218,7 +218,7 @@
 
     var cta = c.cta;
     if (cta) {
-      html += '<section class="ctoc-sec ctoc-cta"><div class="ctoc-wrap ctoc-reveal"><h2>' + esc(cta.headline) + "</h2><p>" + esc(cta.text) + "</p>" + btn(cta.button) + "</div></section>";
+      html += '<section class="ctoc-sec ctoc-cta">' + (cta.image ? '<div class="ctoc-cta__bg" style="background-image:url(\'' + esc(asset(cta.image)) + '\')"></div>' : "") + '<div class="ctoc-wrap ctoc-reveal"><h2>' + esc(cta.headline) + "</h2><p>" + esc(cta.text) + "</p>" + btn(cta.button) + "</div></section>";
     }
 
     if ((c.faq || []).length) {
