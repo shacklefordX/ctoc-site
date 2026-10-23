@@ -3,6 +3,7 @@
    - <div id="ctoc-home"></div>      : the whole home page
    - <div id="ctoc-workouts"></div>  : the schedule page
    - <div id="ctoc-page" data-page="SLUG"></div> : any other page; content is data/pages/SLUG.json
+   - <div id="ctoc-blog"></div>      : the blog; posts are data/blog/SLUG.md listed in data/blog/index.json
    A footer is added automatically to every page.
    All copy lives in data/content.json; sessions live in data/workouts.json. */
 (function () {
@@ -294,6 +295,11 @@
         }).join("") + "</div></div></section>";
     }
 
+    if ((c._blog || []).length) {
+      html += '<section class="ctoc-sec ctoc-sec--tint"><div class="ctoc-wrap ctoc-reveal"><div class="ctoc-sechead"><span class="ctoc-eyebrow">From the blog</span><h2 class="ctoc-title">Fresh reads</h2></div><div class="ctoc-posts">' +
+        c._blog.slice(0, 3).map(function (p) { return postCard(Object.assign({}, p, { slug: p.slug })).replace('href="?post=', 'href="/blog?post='); }).join("") + "</div></div></section>";
+    }
+
     if ((c.members || []).length) {
       html += '<section class="ctoc-sec ctoc-sec--tint"><div class="ctoc-wrap ctoc-reveal"><div class="ctoc-sechead"><span class="ctoc-eyebrow">Meet the crew</span><h2 class="ctoc-title">Member spotlight</h2></div><div class="ctoc-members">' +
         c.members.map(function (m) {
@@ -392,6 +398,63 @@
     mount.innerHTML = html;
   }
 
+
+  /* ---------- blog (data/blog/index.json + data/blog/<slug>.md) ---------- */
+  function inline(t) {
+    t = esc(t);
+    t = t.replace(/!\[([^\]]*)\]\(([^)\s]+)\)/g, function (m, a, u) { return '<img loading="lazy" alt="' + a + '" src="' + esc(asset(u.replace(/&amp;/g, "&"))) + '">'; });
+    t = t.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, function (m, a, u) {
+      u = u.replace(/&amp;/g, "&");
+      return safeUrl(u) ? '<a href="' + esc(u) + '"' + (ext(u) ? ' target="_blank" rel="noopener"' : "") + ">" + a + "</a>" : a;
+    });
+    return t.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>").replace(/(^|[^*])\*([^*]+)\*/g, "$1<em>$2</em>");
+  }
+  function md(src) {
+    var out = [], lines = String(src).replace(/\r/g, "").split("\n"), i = 0;
+    while (i < lines.length) {
+      var l = lines[i], m;
+      if (!l.trim()) { i++; continue; }
+      if ((m = /^(#{1,3})\s+(.*)$/.exec(l))) { var hl = Math.max(2, m[1].length); out.push("<h" + hl + ">" + inline(m[2]) + "</h" + hl + ">"); i++; continue; }
+      if (/^---+\s*$/.test(l)) { out.push("<hr>"); i++; continue; }
+      if (/^>\s?/.test(l)) { var q = []; while (i < lines.length && /^>\s?/.test(lines[i])) q.push(lines[i++].replace(/^>\s?/, "")); out.push("<blockquote>" + inline(q.join(" ")) + "</blockquote>"); continue; }
+      if (/^\s*[-*]\s+/.test(l)) { var u = []; while (i < lines.length && /^\s*[-*]\s+/.test(lines[i])) u.push("<li>" + inline(lines[i++].replace(/^\s*[-*]\s+/, "")) + "</li>"); out.push("<ul>" + u.join("") + "</ul>"); continue; }
+      if (/^\s*\d+\.\s+/.test(l)) { var o = []; while (i < lines.length && /^\s*\d+\.\s+/.test(lines[i])) o.push("<li>" + inline(lines[i++].replace(/^\s*\d+\.\s+/, "")) + "</li>"); out.push("<ol>" + o.join("") + "</ol>"); continue; }
+      var para = []; while (i < lines.length && lines[i].trim() && !/^(#{1,3}\s|>|---|\s*[-*]\s|\s*\d+\.\s)/.test(lines[i])) para.push(lines[i++]);
+      out.push("<p>" + inline(para.join(" ")) + "</p>");
+    }
+    return out.join("\n");
+  }
+  function readTime(text) { return Math.max(1, Math.round(String(text).split(/\s+/).length / 200)) + " min read"; }
+  function postCard(p) {
+    return '<a class="ctoc-post" href="?post=' + encodeURIComponent(p.slug) + '">' +
+      (p.image ? '<img loading="lazy" alt="" src="' + esc(asset(p.image)) + '">' : "") +
+      '<div class="ctoc-post__body"><span class="ctoc-newscard__date">' + esc(dateNice(p.date) || p.date) + (p.tag ? " · " + esc(p.tag) : "") + "</span><h3>" + esc(p.title) +
+      "</h3><p>" + esc(p.excerpt) + '</p><span class="ctoc-post__more">Read the post &rarr;</span></div></a>';
+  }
+  function renderBlog(mount, idx, c) {
+    var posts = (idx && idx.posts) || [];
+    var slug = (/[?&]post=([^&#]+)/.exec(location.search) || [])[1];
+    var post = slug && posts.filter(function (p) { return p.slug === decodeURIComponent(slug); })[0];
+    var title = (idx && idx.title) || "The Trail Log";
+    if (!post) {
+      mount.innerHTML = '<div class="ctoc-page"><div class="ctoc-wrap"><div class="ctoc-sechead"><span class="ctoc-eyebrow">' + esc((idx && idx.eyebrow) || "Blog") + '</span><h1 class="ctoc-title">' + esc(title) + "</h1>" +
+        ((idx && idx.intro) ? '<p class="ctoc-lede">' + esc(idx.intro) + "</p>" : "") + "</div>" +
+        (posts.length ? '<div class="ctoc-posts">' + posts.map(postCard).join("") + "</div>" : '<div class="ctoc-empty">No posts yet.</div>') + "</div></div>";
+      return;
+    }
+    mount.innerHTML = '<div class="ctoc-page"><div class="ctoc-wrap"><article class="ctoc-article"><a class="ctoc-back" href="' + esc(location.pathname) + '">&larr; All posts</a><span class="ctoc-eyebrow">' +
+      esc(dateNice(post.date) || post.date) + (post.tag ? " · " + esc(post.tag) : "") + '</span><h1 class="ctoc-title">' + esc(post.title) + '</h1><p class="ctoc-byline">' + esc(post.author || "City of Trees Triathlon Club") +
+      ' · <span id="ctoc-rt"></span></p><div class="ctoc-prose2" id="ctoc-body"><p>Loading&hellip;</p></div></article></div></div>';
+    document.title = post.title + " | City of Trees Triathlon Club";
+    fetch(base + "data/blog/" + post.slug.replace(/[^a-z0-9-]/gi, "") + ".md").then(function (r) { if (!r.ok) throw 0; return r.text(); }).then(function (t) {
+      var body = document.getElementById("ctoc-body"); if (!body) return;
+      body.innerHTML = md(t);
+      document.getElementById("ctoc-rt").textContent = readTime(t);
+      var cta = (c && c.cta && c.cta.button) || { label: "Join the Team", href: "/join" };
+      body.insertAdjacentHTML("afterend", '<div class="ctoc-postcta"><h3>Come train with us</h3><p>Group rides and runs every weekend.</p>' + btn({ label: "See group workouts", href: "/workouts" }) + "</div>");
+    }).catch(function () { var b = document.getElementById("ctoc-body"); if (b) b.innerHTML = '<div class="ctoc-empty">This post is unavailable right now.</div>'; });
+  }
+
   /* ---------- footer ---------- */
   function renderFooter(c) {
     var f = c.footer;
@@ -422,15 +485,18 @@
     var home = document.getElementById("ctoc-home");
     var sched = document.getElementById("ctoc-workouts");
     var pg = document.getElementById("ctoc-page");
-    place(home); place(sched); place(pg);
+    var blog = document.getElementById("ctoc-blog");
+    place(home); place(sched); place(pg); place(blog);
+    var blogIdx = (home || blog) ? getJSON(base + "data/blog/index.json").catch(function () { return null; }) : Promise.resolve(null);
 
     var content = getJSON(base + "data/content.json").catch(function () { return null; });
     var work = (home || sched)
       ? getJSON((sched && sched.getAttribute("data-src")) || base + "data/workouts.json").catch(function () { return null; })
       : Promise.resolve(null);
 
-    Promise.all([content, work]).then(function (res) {
-      var c = res[0], data = res[1];
+    Promise.all([content, work, blogIdx]).then(function (res) {
+      var c = res[0], data = res[1], bi = res[2];
+      if (c && bi) c._blog = bi.posts || [];
       if (home) {
         if (c) renderHome(home, c);
         else home.innerHTML = '<div class="ctoc-empty">This page is unavailable right now.</div>';
@@ -441,6 +507,7 @@
         if (data) renderSchedule(sched, data, c);
         else sched.innerHTML = '<div class="ctoc-empty">The schedule is unavailable right now. Check our Strava club for the latest.</div>';
       }
+      if (blog) renderBlog(blog, bi, c);
       if (pg) {
         var slug = (pg.getAttribute("data-page") || "").replace(/[^a-z0-9-]/gi, "");
         getJSON(base + "data/pages/" + slug + ".json").then(function (p) { renderPage(pg, p); reveal(pg); })

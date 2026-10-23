@@ -1,0 +1,28 @@
+{
+  "title": "The Trail Log",
+  "eyebrow": "Blog",
+  "intro": "Training tips, local spots and the occasional bad triathlon joke.",
+  "posts": [
+    {
+      "slug": "tri-jargon-decoded",
+      "title": "Triathlon jargon, decoded",
+      "date": "2026-10-23",
+      "tag": "Beginners",
+      "excerpt": "T1, bricks, bonking and chicked. Everything the group chat assumes you already know."
+    },
+    {
+      "slug": "open-water-swim-stages",
+      "title": "Your first open-water swim, in five stages",
+      "date": "2026-10-23",
+      "tag": "Swim",
+      "excerpt": "From confidence to the cold to the missing black line, and how to get through all of it."
+    },
+    {
+      "slug": "why-the-treasure-valley",
+      "title": "Why the Treasure Valley is a great place to train",
+      "date": "2026-10-23",
+      "tag": "Local",
+      "excerpt": "The river, the Greenbelt, the foothills and the people who make Saturday mornings worth it."
+    }
+  ]
+}

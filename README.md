@@ -37,3 +37,7 @@ One-time: repo Settings → Pages → Source: Deploy from a branch → `main` / 
    `<div id="ctoc-page" data-page="SLUG"></div>` (see `snippets/page-block.html`). Add it to the nav.
 2. Create `data/pages/SLUG.json` here. Block types: `text`, `table`, `cards`, `checklist`, `steps`, `faq`, `races`, `photos`, `cta`.
 3. All later edits are just commits to that JSON file. `data/pages/new-to-tri.json` is the example.
+
+## Blog
+Add `data/blog/SLUG.md` (Markdown: ## headings, lists, **bold**, [links](url), ![img](images/x.jpg), > quotes) and one entry in `data/blog/index.json`
+(slug, title, date, tag, excerpt, optional image). The latest 3 posts also show on the home page. The page needs `<div id="ctoc-blog"></div>` at `/blog`.

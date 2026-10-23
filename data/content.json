@@ -147,6 +147,10 @@
         "href": "/new-to-tri"
       },
       {
+        "label": "Blog",
+        "href": "/blog"
+      },
+      {
         "label": "Join the team",
         "href": "/join"
       }
