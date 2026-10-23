@@ -18,7 +18,7 @@ The race lists its swim, bike and run distances on its own course pages, so chec
 
 ## IRONMAN 70.3 Boise: the big one
 
-- **When:** It took place on Saturday, July 25, 2026 and on July 26 the year before, so expect mid to late July. Check Ironman's site for the 2027 date.
+- **When:** Saturday, July 24, 2027. It ran on July 25, 2026 and July 26, 2025, so it's settled into late July.
 - **Where:** The swim is at Lucky Peak Reservoir. The finish is downtown.
 - **Distance:** A 70.3 is 1.2 miles of swimming, 56 miles of biking and 13.1 miles of running.
 - **The swim:** A reservoir swim at Lucky Peak, starting and finishing at Barclay Bay.
