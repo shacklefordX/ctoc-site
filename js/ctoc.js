@@ -455,6 +455,20 @@
     }).catch(function () { var b = document.getElementById("ctoc-body"); if (b) b.innerHTML = '<div class="ctoc-empty">This post is unavailable right now.</div>'; });
   }
 
+
+  /* Squarespace's own header/footer social icons can't be edited from the repo,
+     so point every Instagram link at the one address in content.json. */
+  function fixSocial(c) {
+    var ig = ((c.footer && c.footer.social) || []).filter(function (l) { return /instagram/i.test(l.label || "") || /instagram\.com/i.test(l.href || ""); })[0];
+    if (!ig || !safeUrl(ig.href)) return;
+    function run() {
+      Array.prototype.forEach.call(document.querySelectorAll('a[href*="instagram.com"]'), function (a) {
+        if (a.getAttribute("href") !== ig.href) a.setAttribute("href", ig.href);
+      });
+    }
+    run(); window.addEventListener("load", run); setTimeout(run, 1500); setTimeout(run, 4000);
+  }
+
   /* ---------- footer ---------- */
   function renderFooter(c) {
     var f = c.footer;
@@ -513,7 +527,7 @@
         getJSON(base + "data/pages/" + slug + ".json").then(function (p) { renderPage(pg, p); reveal(pg); })
           .catch(function () { pg.innerHTML = '<div class="ctoc-empty">This page is unavailable right now.</div>'; });
       }
-      if (c) renderFooter(c);
+      if (c) { renderFooter(c); fixSocial(c); }
       reveal(document);
     });
   }
