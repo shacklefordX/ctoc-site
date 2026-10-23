@@ -4,6 +4,13 @@
   "intro": "Training tips, local spots and the occasional bad triathlon joke.",
   "posts": [
     {
+      "slug": "two-races-treasure-valley",
+      "title": "Two races every Treasure Valley triathlete should know",
+      "date": "2026-10-23",
+      "tag": "Races",
+      "excerpt": "Treasure Valley Triathlon and IRONMAN 70.3 Boise: what they are, how they differ, and which one to pick first."
+    },
+    {
       "slug": "tri-suit-guide",
       "title": "Do you need a tri suit? A beginner's guide",
       "date": "2026-10-23",
