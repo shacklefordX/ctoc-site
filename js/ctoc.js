@@ -62,20 +62,25 @@
     return m ? new Date(+m[1], +m[2] - 1, +m[3]) : null;
   }
   function today() { var n = new Date(); return new Date(n.getFullYear(), n.getMonth(), n.getDate()); }
-  function nextOccurrence(dayName) {
+  function nextOccurrence(dayName, from) {
     var idx = DAYS.indexOf(dayName);
     if (idx < 0) return null;
-    var t = today();
+    var t = today(), f = parseDate(from);
+    if (f && f > t) t = f;
     t.setDate(t.getDate() + ((idx - t.getDay() + 7) % 7));
     return t;
   }
+  /* Recurring sessions ("day") may carry "from": "YYYY-MM-DD" so they start later.
+     A dated session on the same day and sport replaces that day's recurring one. */
   function prepare(list) {
-    var t = today();
-    return (list || []).map(function (w) {
-      var d = parseDate(w.date) || nextOccurrence(w.day);
+    var t = today(), items = (list || []).map(function (w) {
+      var d = parseDate(w.date) || nextOccurrence(w.day, w.from);
       return Object.assign({}, w, { _d: d, _recurring: !w.date });
-    }).filter(function (w) { return w._d && w._d >= t; })
-      .sort(function (a, b) { return a._d - b._d; });
+    }).filter(function (w) { return w._d && w._d >= t; });
+    items = items.filter(function (w) {
+      return !w._recurring || !items.some(function (o) { return !o._recurring && +o._d === +w._d && o.discipline === w.discipline; });
+    });
+    return items.sort(function (a, b) { return a._d - b._d; });
   }
   function minutesOf(str) {
     var m = /(\d+(?:\.\d+)?)\s*(hour|hr|h|minute|min|m)/i.exec(str || "");

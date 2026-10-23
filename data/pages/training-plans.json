@@ -1,0 +1,216 @@
+{
+  "eyebrow": "Members",
+  "title": "Training plans",
+  "intro": "Starter templates built around our weekly rhythm: a group ride on Saturday and a long run on Sunday. Pick one, adjust it to your life, and show up.",
+  "blocks": [
+    {
+      "type": "text",
+      "eyebrow": "Before you start",
+      "title": "How to use these",
+      "paragraphs": [
+        "Each plan has four key sessions a week: a swim and an easy run on weekdays of your choosing, then the Saturday group ride and Sunday long run. Everything is listed in minutes, so it works at any speed.",
+        "Keep nearly everything easy, meaning you can talk in full sentences. Rest or do easy cross-training on the other days. If a week goes badly, repeat it instead of skipping ahead.",
+        "These are general templates, not medical advice. If you have a health concern or haven't exercised in a while, check with your doctor first."
+      ]
+    },
+    {
+      "type": "table",
+      "tint": true,
+      "eyebrow": "Effort guide",
+      "title": "How hard is easy?",
+      "columns": [
+        "Effort",
+        "Feels like",
+        "Talking"
+      ],
+      "rows": [
+        [
+          "Easy",
+          "3 to 4 out of 10",
+          "Full sentences"
+        ],
+        [
+          "Steady",
+          "5 to 6 out of 10",
+          "Short sentences"
+        ],
+        [
+          "Hard",
+          "7 to 8 out of 10",
+          "A few words"
+        ]
+      ],
+      "note": "Almost all of your training should be Easy. Save Hard for race day."
+    },
+    {
+      "type": "table",
+      "id": "sprint",
+      "eyebrow": "Plan 1",
+      "title": "First sprint: 8 weeks",
+      "intro": "For someone who can already swim a few lengths, ride an hour and jog 20 minutes.",
+      "columns": [
+        "Week",
+        "Swim",
+        "Easy run",
+        "Saturday ride",
+        "Sunday long run"
+      ],
+      "rows": [
+        [
+          "Week 1",
+          "20 min",
+          "20 min",
+          "45 min",
+          "25 min"
+        ],
+        [
+          "Week 2",
+          "20 min",
+          "25 min",
+          "50 min",
+          "30 min"
+        ],
+        [
+          "Week 3",
+          "25 min",
+          "25 min",
+          "60 min",
+          "30 min"
+        ],
+        [
+          "Week 4 (easier)",
+          "20 min",
+          "20 min",
+          "45 min",
+          "25 min"
+        ],
+        [
+          "Week 5",
+          "25 min",
+          "30 min",
+          "60 min + 10 min run",
+          "35 min"
+        ],
+        [
+          "Week 6",
+          "30 min",
+          "30 min",
+          "75 min + 10 min run",
+          "40 min"
+        ],
+        [
+          "Week 7",
+          "30 min",
+          "25 min",
+          "60 min + 10 min run",
+          "30 min"
+        ],
+        [
+          "Race week",
+          "15 min",
+          "15 min",
+          "30 min easy",
+          "Race day"
+        ]
+      ],
+      "note": "A \"+ run\" on the ride is a brick: finish the ride and run straight away for that many minutes. Swim minutes can be broken into short intervals with rests."
+    },
+    {
+      "type": "table",
+      "tint": true,
+      "id": "olympic",
+      "eyebrow": "Plan 2",
+      "title": "Olympic distance: 10 weeks",
+      "intro": "For someone who has finished a sprint, or is comfortable riding 75 minutes and running 40.",
+      "columns": [
+        "Week",
+        "Swim",
+        "Easy run",
+        "Saturday ride",
+        "Sunday long run"
+      ],
+      "rows": [
+        [
+          "Week 1",
+          "30 min",
+          "30 min",
+          "75 min",
+          "45 min"
+        ],
+        [
+          "Week 2",
+          "30 min",
+          "35 min",
+          "90 min",
+          "50 min"
+        ],
+        [
+          "Week 3",
+          "35 min",
+          "35 min",
+          "90 min",
+          "55 min"
+        ],
+        [
+          "Week 4 (easier)",
+          "30 min",
+          "30 min",
+          "75 min",
+          "45 min"
+        ],
+        [
+          "Week 5",
+          "40 min",
+          "40 min",
+          "105 min + 10 min run",
+          "60 min"
+        ],
+        [
+          "Week 6",
+          "40 min",
+          "40 min",
+          "120 min + 10 min run",
+          "65 min"
+        ],
+        [
+          "Week 7",
+          "45 min",
+          "45 min",
+          "120 min + 15 min run",
+          "70 min"
+        ],
+        [
+          "Week 8 (easier)",
+          "35 min",
+          "35 min",
+          "90 min",
+          "55 min"
+        ],
+        [
+          "Week 9",
+          "40 min",
+          "35 min",
+          "90 min + 10 min run",
+          "50 min"
+        ],
+        [
+          "Race week",
+          "20 min",
+          "20 min",
+          "30 min easy",
+          "Race day"
+        ]
+      ],
+      "note": "Every fourth week eases off so your body can absorb the work. Do the brick runs at an easy pace."
+    },
+    {
+      "type": "cta",
+      "title": "Pair a plan with the group",
+      "text": "The Saturday ride and Sunday run are on the schedule. Come do them with us.",
+      "button": {
+        "label": "See group workouts",
+        "href": "/workouts"
+      }
+    }
+  ]
+}

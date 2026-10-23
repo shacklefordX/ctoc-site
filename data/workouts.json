@@ -12,9 +12,21 @@
       "link": ""
     },
     {
-      "date": "2026-11-01",
+      "day": "Saturday",
+      "from": "2026-11-07",
+      "discipline": "Bike",
+      "title": "Saturday Group Ride",
+      "time": "10:00 AM",
+      "duration": "90 minutes",
+      "location": "Merrill Park",
+      "notes": "",
+      "link": ""
+    },
+    {
+      "day": "Sunday",
+      "from": "2026-11-01",
       "discipline": "Run",
-      "title": "Group Run",
+      "title": "Sunday Long Run",
       "time": "10:00 AM",
       "duration": "60 minutes",
       "location": "Merrill Park",
