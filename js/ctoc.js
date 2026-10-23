@@ -156,6 +156,9 @@
       var html = '<div class="ctoc-page"><div class="ctoc-wrap">';
       html += '<div class="ctoc-sechead"><span class="ctoc-eyebrow">' + esc(page.eyebrow || "Schedule") + '</span><h1 class="ctoc-title">' +
         esc(page.title || "Group workouts") + "</h1>" + (page.intro ? '<p class="ctoc-lede">' + esc(page.intro) + "</p>" : "") + "</div>";
+      var feed = asset("calendar.ics").replace(/^https?:/, "webcal:");
+      html += '<p class="ctoc-subscribe"><strong>Get every session on your calendar:</strong> <a href="https://calendar.google.com/calendar/r?cid=' + encodeURIComponent(feed) +
+        '" target="_blank" rel="noopener">Google Calendar</a> <a href="' + esc(feed) + '">Apple / Outlook</a></p>';
       if (data.sample) html += '<p class="ctoc-sample-note"><strong>Sample schedule.</strong> Final days, times and locations are coming soon.</p>';
       if (disciplines.length > 2) {
         html += '<div class="ctoc-filters" role="group" aria-label="Filter workouts">' + disciplines.map(function (d) {

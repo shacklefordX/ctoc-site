@@ -426,3 +426,7 @@ html { scroll-behavior: smooth; }
   .ctoc-table th { font-size: 1rem; }
   .ctoc-table td:first-child { font-size: 1.15rem; }
 }
+
+.ctoc-subscribe { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin: 0 0 22px !important; font-size: .95rem; }
+.ctoc-subscribe a { padding: .4em 1em; border-radius: 999px; border: 2px solid var(--ctoc-blue); color: var(--ctoc-blue) !important; font-weight: 600; text-decoration: none !important; }
+.ctoc-subscribe a:hover { background: var(--ctoc-blue); color: #fff !important; }
