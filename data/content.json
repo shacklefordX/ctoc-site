@@ -19,10 +19,23 @@
       "Bike",
       "Run"
     ],
-    "photo": {
-      "src": "images/finish.jpg",
-      "alt": "A triathlete crossing the finish line with arms out"
-    }
+    "slides": [
+      {
+        "src": "images/finish.jpg",
+        "alt": "A triathlete crossing the finish line with arms out",
+        "caption": "Finish line"
+      },
+      {
+        "src": "images/bike.jpg",
+        "alt": "A cyclist in an aero position on a road bike",
+        "caption": "On the bike"
+      },
+      {
+        "src": "images/run.jpg",
+        "alt": "A runner mid-stride during a race",
+        "caption": "On the run"
+      }
+    ]
   },
   "disciplines": {
     "eyebrow": "What we do",
@@ -73,7 +86,6 @@
       "text": "Meet the group, move at your own pace, and make it a habit."
     }
   ],
-  "photos": [],
   "races": [],
   "cta": {
     "headline": "Come try a session.",
@@ -146,5 +158,54 @@
       }
     ],
     "copyright": "© 2026 City of Trees Triathlon Club"
-  }
+  },
+  "marquee": [
+    "Swim",
+    "Bike",
+    "Run",
+    "Boise",
+    "Treasure Valley",
+    "City of Trees"
+  ],
+  "tiles": [
+    {
+      "icon": "calendar",
+      "title": "Group workouts",
+      "text": "Swim, bike and run sessions on the calendar, with directions and reminders.",
+      "href": "/workouts",
+      "cta": "See the schedule"
+    },
+    {
+      "icon": "flag",
+      "title": "New to triathlon?",
+      "text": "Start here. Quick answers to the usual first-timer questions.",
+      "href": "#ctoc-faq",
+      "cta": "Read the FAQ"
+    },
+    {
+      "icon": "users",
+      "title": "Join the team",
+      "text": "Sign up and get on the list for sessions and club news.",
+      "href": "/join",
+      "cta": "Join now"
+    },
+    {
+      "icon": "pulse",
+      "title": "Strava club",
+      "text": "See sessions and club activity as it happens.",
+      "href": "https://strava.app.link/RnvyvO4At7b",
+      "cta": "Open Strava"
+    }
+  ],
+  "news": [
+    {
+      "date": "2026-10-23",
+      "title": "First sessions are on the calendar",
+      "text": "A Halloween Ride on Oct 31 and a group run on Nov 1, both starting at Merrill Park.",
+      "link": "/workouts",
+      "linkLabel": "See the schedule"
+    }
+  ],
+  "members": [],
+  "sponsors": []
 }

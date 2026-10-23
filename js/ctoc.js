@@ -32,7 +32,12 @@
   var ICONS = {
     swim: '<svg viewBox="0 0 24 24"><path d="M2 8c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M2 13c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M2 18c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/></svg>',
     bike: '<svg viewBox="0 0 24 24"><circle cx="6" cy="17" r="3.6"/><circle cx="18" cy="17" r="3.6"/><path d="M6 17l4-8h5l3 8M10 9l2 8 3-8M9 6h3"/></svg>',
-    run: '<svg viewBox="0 0 24 24"><circle cx="15" cy="4.5" r="2"/><path d="M13 8.5l-3 4.5 3 3-2 5M13 8.5l4 2.5 3-1M10 13l-4-1"/></svg>'
+    run: '<svg viewBox="0 0 24 24"><circle cx="15" cy="4.5" r="2"/><path d="M13 8.5l-3 4.5 3 3-2 5M13 8.5l4 2.5 3-1M10 13l-4-1"/></svg>',
+    calendar: '<svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M8 3v4M16 3v4M3.5 10h17"/></svg>',
+    flag: '<svg viewBox="0 0 24 24"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg>',
+    users: '<svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5M16 5.2a3.2 3.2 0 010 5.6M18 14.8c1.8.7 3 2.4 3 5.2"/></svg>',
+    pulse: '<svg viewBox="0 0 24 24"><path d="M3 12h4l2.5-6 4 12 2.5-6H21"/></svg>',
+    arrow: '<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
   };
 
   /* Keep our blocks inside Squarespace's main content area, whatever the person pasted them into. */
@@ -81,6 +86,22 @@
     var h = m ? +m[1] % 12 + (/pm/i.test(m[3]) ? 12 : 0) : 9, mi = m && m[2] ? +m[2] : 0;
     return new Date(w._d.getFullYear(), w._d.getMonth(), w._d.getDate(), h, mi);
   }
+  function endOf(w) { return new Date(startOf(w).getTime() + minutesOf(w.duration) * 60000); }
+  function nextSession(items) {
+    var now = new Date();
+    for (var i = 0; i < items.length; i++) if (endOf(items[i]) > now) return items[i];
+    return null;
+  }
+  function countdownText(w) {
+    var now = new Date(), st = startOf(w), ms = st - now;
+    if (ms <= 0) return endOf(w) > now ? "Happening now" : "Finished";
+    var d = Math.floor(ms / 864e5), h = Math.floor(ms % 864e5 / 36e5), m = Math.floor(ms % 36e5 / 6e4), sec = Math.floor(ms % 6e4 / 1000);
+    return (d ? d + "d " : "") + h + "h " + m + "m " + (d ? "" : sec + "s");
+  }
+  function dayFlag(w) {
+    var diff = Math.round((w._d - today()) / 864e5);
+    return diff === 0 ? "Today" : diff === 1 ? "Tomorrow" : "";
+  }
   function icsStamp(d) {
     function p(n) { return (n < 10 ? "0" : "") + n; }
     return d.getFullYear() + p(d.getMonth() + 1) + p(d.getDate()) + "T" + p(d.getHours()) + p(d.getMinutes()) + "00";
@@ -107,8 +128,9 @@
       ? '<div class="ctoc-card__date"><span class="ctoc-card__wk">Every</span><span class="ctoc-card__mon">' + DAYS[w._d.getDay()].slice(0, 3) + "</span></div>"
       : '<div class="ctoc-card__date"><span class="ctoc-card__mon">' + MONTHS[w._d.getMonth()] + '</span><span class="ctoc-card__day">' + w._d.getDate() + "</span></div>";
     var dayLine = DAYS[w._d.getDay()] + (w._recurring ? "s" : "");
+    var flag = dayFlag(w);
     return '<article class="ctoc-card" data-discipline="' + esc(w.discipline) + '">' + dateBox +
-      '<div class="ctoc-card__body"><span class="ctoc-card__tag">' + esc(w.discipline) + (w.level ? " · " + esc(w.level) : "") + "</span>" +
+      '<div class="ctoc-card__body">' + (flag ? '<span class="ctoc-card__flag">' + flag + "</span>" : "") + '<span class="ctoc-card__tag">' + esc(w.discipline) + (w.level ? " · " + esc(w.level) : "") + "</span>" +
       '<h4 class="ctoc-card__title">' + esc(w.title) + "</h4>" +
       '<p class="ctoc-card__meta"><strong>' + esc(dayLine) + "</strong> &middot; " + when + "<br>" + esc(w.location) +
       (w.notes ? "<br>" + esc(w.notes) : "") + "</p>" +
@@ -151,34 +173,93 @@
   }
 
   function renderNext(mount, data) {
-    var items = prepare(data.workouts).slice(0, 2);
-    if (!items.length) { mount.style.display = "none"; return; }
+    var items = prepare(data.workouts), nx = nextSession(items);
+    var shown = items.slice(0, 2);
+    if (!shown.length) { mount.style.display = "none"; return; }
     mount.innerHTML = '<div class="ctoc-next__head"><div><span class="ctoc-eyebrow">Coming up</span><h2 class="ctoc-title">Next up</h2></div>' +
-      '<a href="/workouts">All sessions &rarr;</a></div><div class="ctoc-cards">' + items.map(card).join("") + "</div>";
+      (nx ? '<div class="ctoc-countdown" data-i="' + items.indexOf(nx) + '"><span class="ctoc-countdown__label">' + esc(nx.title) + ' in</span><span class="ctoc-countdown__time">' + countdownText(nx) + "</span></div>" : "") +
+      '<a href="/workouts">All sessions &rarr;</a></div><div class="ctoc-cards">' + shown.map(card).join("") + "</div>";
+    if (nx) {
+      var el = mount.querySelector(".ctoc-countdown__time");
+      if (window.__ctocTimer) clearInterval(window.__ctocTimer);
+      window.__ctocTimer = setInterval(function () { if (el) el.textContent = countdownText(nx); }, 1000);
+    }
   }
 
   /* ---------- home ---------- */
+  function dateNice(str) {
+    var d = parseDate(str);
+    return d ? MONTHS[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear() : "";
+  }
+
+  function heroInit(root) {
+    var slides = root.querySelectorAll(".ctoc-slide"), bgs = root.querySelectorAll(".ctoc-hero__bgimg"), dots = root.querySelectorAll(".ctoc-dot");
+    if (slides.length < 2) return;
+    var i = 0, timer = null;
+    function go(n) {
+      i = (n + slides.length) % slides.length;
+      Array.prototype.forEach.call(slides, function (el, k) { el.classList.toggle("is-active", k === i); });
+      Array.prototype.forEach.call(bgs, function (el, k) { el.classList.toggle("is-active", k === i); });
+      Array.prototype.forEach.call(dots, function (el, k) { el.setAttribute("aria-current", k === i ? "true" : "false"); });
+    }
+    function start() {
+      if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      stop(); timer = setInterval(function () { go(i + 1); }, 5200);
+    }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+    Array.prototype.forEach.call(dots, function (d, k) { d.addEventListener("click", function () { go(k); start(); }); });
+    var stack = root.querySelector(".ctoc-hero__stack");
+    stack.addEventListener("mouseenter", stop); stack.addEventListener("mouseleave", start);
+    go(0); start();
+  }
+
   function renderHome(mount, c) {
     var h = c.hero || {}, html = "";
+    var slides = (h.slides && h.slides.length ? h.slides : (h.photo ? [h.photo] : []));
 
     var chips = (h.chips || []).map(function (k) {
       return '<span class="ctoc-chip">' + (ICONS[k.toLowerCase()] || "") + esc(k) + "</span>";
     }).join("");
     var headline = (h.headline || []).map(function (l, i, a) { return i === a.length - 1 ? "<span>" + esc(l) + "</span>" : esc(l); }).join("<br>");
-    html += '<section class="ctoc-hero"><div class="ctoc-wrap"><div class="ctoc-hero__grid"><div>' +
-      (h.logo ? '<img class="ctoc-hero__mark" alt="" src="' + esc(asset(h.logo)) + '">' : "") +
+
+    html += '<section class="ctoc-hero"><div class="ctoc-hero__bg" aria-hidden="true">' + slides.map(function (p, i) {
+      return '<div class="ctoc-hero__bgimg' + (i === 0 ? " is-active" : "") + '" style="background-image:url(\'' + esc(asset(p.src)) + '\')"></div>';
+    }).join("") + '</div><div class="ctoc-wrap"><div class="ctoc-hero__grid"><div class="ctoc-hero__copy">' +
       (h.eyebrow ? '<span class="ctoc-eyebrow">' + esc(h.eyebrow) + "</span>" : "") +
       "<h1>" + headline + "</h1><p class=\"ctoc-hero__text\">" + esc(h.text) + "</p>" +
       '<div class="ctoc-hero__actions">' + btn(h.primary) + btn(h.secondary, "ctoc-btn--outline") + "</div>" +
       (chips ? '<div class="ctoc-hero__chips">' + chips + "</div>" : "") + "</div>" +
-      (h.photo ? '<div class="ctoc-hero__photo"><img alt="' + esc(h.photo.alt) + '" src="' + esc(asset(h.photo.src)) + '"></div>' : "") +
+      (slides.length ? '<div class="ctoc-hero__stack"><div class="ctoc-hero__frame">' + slides.map(function (p, i) {
+        return '<figure class="ctoc-slide' + (i === 0 ? " is-active" : "") + '"><img alt="' + esc(p.alt) + '" src="' + esc(asset(p.src)) + '">' +
+          (p.caption ? "<figcaption>" + esc(p.caption) + "</figcaption>" : "") + "</figure>";
+      }).join("") + "</div>" + (slides.length > 1 ? '<div class="ctoc-dots">' + slides.map(function (p, i) {
+        return '<button type="button" class="ctoc-dot" aria-label="Show photo ' + (i + 1) + '" aria-current="' + (i === 0) + '"></button>';
+      }).join("") + "</div>" : "") + "</div>" : "") +
       "</div></div></section>";
+
+    var words = (c.marquee && c.marquee.length ? c.marquee : ["Swim", "Bike", "Run"]);
+    var strip = words.map(function (w) { return "<span>" + esc(w) + '</span><i aria-hidden="true"></i>'; }).join("");
+    html += '<div class="ctoc-marquee" aria-hidden="true"><div class="ctoc-marquee__track">' + strip + strip + strip + strip + "</div></div>";
+
+    if ((c.tiles || []).length) {
+      html += '<section class="ctoc-sec ctoc-sec--tiles"><div class="ctoc-wrap"><div class="ctoc-tiles">' + c.tiles.map(function (t) {
+        return '<a class="ctoc-tile ctoc-reveal" href="' + esc(safeUrl(t.href)) + '"' + (ext(t.href) ? ' target="_blank" rel="noopener"' : "") + ">" +
+          '<span class="ctoc-ico">' + (ICONS[t.icon] || "") + "</span><h3>" + esc(t.title) + "</h3><p>" + esc(t.text) + "</p>" +
+          '<span class="ctoc-tile__go">' + esc(t.cta || "Details") + " " + ICONS.arrow + "</span></a>";
+      }).join("") + "</div></div></section>";
+    }
 
     html += '<section class="ctoc-sec"><div class="ctoc-wrap ctoc-reveal"><div id="ctoc-next"></div></div></section>';
 
+    var cta = c.cta;
+    if (cta) {
+      html += '<section class="ctoc-sec ctoc-cta">' + (cta.image ? '<div class="ctoc-cta__bg" style="background-image:url(\'' + esc(asset(cta.image)) + '\')"></div>' : "") +
+        '<div class="ctoc-wrap ctoc-reveal"><h2>' + esc(cta.headline) + "</h2><p>" + esc(cta.text) + "</p>" + btn(cta.button) + "</div></section>";
+    }
+
     var d = c.disciplines;
     if (d && (d.items || []).length) {
-      html += '<section class="ctoc-sec ctoc-sec--tint"><div class="ctoc-wrap ctoc-reveal"><div class="ctoc-sechead"><span class="ctoc-eyebrow">' + esc(d.eyebrow || "What we do") +
+      html += '<section class="ctoc-sec"><div class="ctoc-wrap ctoc-reveal"><div class="ctoc-sechead"><span class="ctoc-eyebrow">' + esc(d.eyebrow || "What we do") +
         '</span><h2 class="ctoc-title">' + esc(d.title) + '</h2>' + (d.text ? '<p class="ctoc-lede">' + esc(d.text) + "</p>" : "") + '</div><div class="ctoc-trio">' +
         d.items.map(function (i) {
           var k = (i.icon || i.title || "").toLowerCase();
@@ -188,11 +269,28 @@
 
     var a = c.about;
     if (a && (a.paragraphs || []).length) {
-      html += '<section class="ctoc-sec"><div class="ctoc-wrap ctoc-reveal"><div class="ctoc-about">' +
+      var vid = a.video ? '<div class="ctoc-video"><iframe loading="lazy" title="Club video" src="https://www.youtube-nocookie.com/embed/' + esc(a.video) + '" allowfullscreen></iframe></div>' : "";
+      html += '<section class="ctoc-sec ctoc-sec--tint"><div class="ctoc-wrap ctoc-reveal"><div class="ctoc-about">' +
         (a.photo ? '<div class="ctoc-about__photo"><img loading="lazy" alt="' + esc(a.photo.alt) + '" src="' + esc(asset(a.photo.src)) + '"></div>' : "") +
         '<div class="ctoc-about__body"><span class="ctoc-eyebrow">' + esc(a.eyebrow || "About") + '</span><h2 class="ctoc-title">' + esc(a.title) + "</h2>" +
         a.paragraphs.map(function (p) { return "<p>" + esc(p) + "</p>"; }).join("") +
-        (a.byline ? '<p class="ctoc-about__by">' + esc(a.byline) + "</p>" : "") + "</div></div></div></section>";
+        (a.byline ? '<p class="ctoc-about__by">' + esc(a.byline) + "</p>" : "") + "</div></div>" + vid + "</div></section>";
+    }
+
+    if ((c.news || []).length) {
+      html += '<section class="ctoc-sec"><div class="ctoc-wrap ctoc-reveal"><div class="ctoc-sechead"><span class="ctoc-eyebrow">Club news</span><h2 class="ctoc-title">Latest updates</h2></div><div class="ctoc-news">' +
+        c.news.map(function (n) {
+          return '<article class="ctoc-newscard"><span class="ctoc-newscard__date">' + esc(dateNice(n.date) || n.date) + "</span><h3>" + esc(n.title) + "</h3><p>" + esc(n.text) + "</p>" +
+            (safeUrl(n.link) ? '<a href="' + esc(n.link) + '"' + (ext(n.link) ? ' target="_blank" rel="noopener"' : "") + ">" + esc(n.linkLabel || "More") + " &rarr;</a>" : "") + "</article>";
+        }).join("") + "</div></div></section>";
+    }
+
+    if ((c.members || []).length) {
+      html += '<section class="ctoc-sec ctoc-sec--tint"><div class="ctoc-wrap ctoc-reveal"><div class="ctoc-sechead"><span class="ctoc-eyebrow">Meet the crew</span><h2 class="ctoc-title">Member spotlight</h2></div><div class="ctoc-members">' +
+        c.members.map(function (m) {
+          return '<div class="ctoc-member">' + (m.photo ? '<img loading="lazy" alt="' + esc(m.name) + '" src="' + esc(asset(m.photo)) + '">' : '<div class="ctoc-member__ph">' + esc((m.name || "?").charAt(0)) + "</div>") +
+            "<h3>" + esc(m.name) + "</h3><p>" + esc(m.blurb) + "</p></div>";
+        }).join("") + "</div></div></section>";
     }
 
     if ((c.steps || []).length) {
@@ -202,30 +300,28 @@
         }).join("") + "</div></div></section>";
     }
 
-    if ((c.photos || []).length) {
-      html += '<section class="ctoc-sec"><div class="ctoc-wrap ctoc-reveal"><div class="ctoc-photos">' + c.photos.map(function (p) {
-        return '<figure><img loading="lazy" alt="' + esc(p.alt) + '" src="' + esc(asset(p.src)) + '">' + (p.caption ? "<figcaption>" + esc(p.caption) + "</figcaption>" : "") + "</figure>";
-      }).join("") + "</div></div></section>";
-    }
-
     if ((c.races || []).length) {
-      html += '<section class="ctoc-sec ctoc-sec--tint"><div class="ctoc-wrap ctoc-reveal"><div class="ctoc-sechead"><span class="ctoc-eyebrow">On the calendar</span><h2 class="ctoc-title">Races we\'re eyeing</h2></div><div class="ctoc-races">' +
+      html += '<section class="ctoc-sec"><div class="ctoc-wrap ctoc-reveal"><div class="ctoc-sechead"><span class="ctoc-eyebrow">On the calendar</span><h2 class="ctoc-title">Races we\'re eyeing</h2></div><div class="ctoc-races">' +
         c.races.map(function (r) {
           return '<div class="ctoc-race"><span class="ctoc-race__when">' + esc(r.when) + '</span><div><div class="ctoc-race__name">' + esc(r.name) + '</div><div class="ctoc-race__meta">' + esc(r.meta) + "</div></div>" +
             (safeUrl(r.link) ? '<a href="' + esc(r.link) + '" target="_blank" rel="noopener">Race info &rarr;</a>' : "") + "</div>";
         }).join("") + "</div></div></section>";
     }
 
-    var cta = c.cta;
-    if (cta) {
-      html += '<section class="ctoc-sec ctoc-cta">' + (cta.image ? '<div class="ctoc-cta__bg" style="background-image:url(\'' + esc(asset(cta.image)) + '\')"></div>' : "") + '<div class="ctoc-wrap ctoc-reveal"><h2>' + esc(cta.headline) + "</h2><p>" + esc(cta.text) + "</p>" + btn(cta.button) + "</div></section>";
+    if ((c.sponsors || []).length) {
+      html += '<section class="ctoc-sec ctoc-sec--tint"><div class="ctoc-wrap ctoc-reveal"><div class="ctoc-sechead"><span class="ctoc-eyebrow">Thank you</span><h2 class="ctoc-title">Our partners</h2></div><div class="ctoc-sponsors">' +
+        c.sponsors.map(function (sp) {
+          var im = '<img loading="lazy" alt="' + esc(sp.name) + '" src="' + esc(asset(sp.logo)) + '">';
+          return safeUrl(sp.href) ? '<a href="' + esc(sp.href) + '" target="_blank" rel="noopener">' + im + "</a>" : "<div>" + im + "</div>";
+        }).join("") + "</div></div></section>";
     }
 
     if ((c.faq || []).length) {
-      html += '<section class="ctoc-sec"><div class="ctoc-wrap ctoc-reveal"><div class="ctoc-sechead"><span class="ctoc-eyebrow">Good to know</span><h2 class="ctoc-title">Questions</h2></div><div class="ctoc-faq">' +
+      html += '<section class="ctoc-sec" id="ctoc-faq"><div class="ctoc-wrap ctoc-reveal"><div class="ctoc-sechead"><span class="ctoc-eyebrow">New to triathlon?</span><h2 class="ctoc-title">Questions</h2></div><div class="ctoc-faq">' +
         c.faq.map(function (f) { return "<details><summary>" + esc(f.q) + "</summary><p>" + esc(f.a) + "</p></details>"; }).join("") + "</div></div></section>";
     }
     mount.innerHTML = html;
+    heroInit(mount);
   }
 
   /* ---------- footer ---------- */
