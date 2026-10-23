@@ -399,3 +399,30 @@ html { scroll-behavior: smooth; }
 
 @media (max-width: 980px) { .ctoc-tiles { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 520px) { .ctoc-tiles { grid-template-columns: 1fr; } }
+
+/* =========================================================
+   Content pages (data/pages/*.json)
+   ========================================================= */
+.ctoc-page--content { padding-bottom: 0; }
+.ctoc-page--content > .ctoc-wrap > .ctoc-sechead { margin-bottom: 0; }
+.ctoc-page--content .ctoc-sec { padding: clamp(32px, 5vw, 60px) 0; }
+.ctoc-prose { max-width: 760px; }
+.ctoc-prose p { color: var(--ctoc-muted); font-size: 1.1rem; margin-bottom: 16px !important; }
+.ctoc-tablewrap { overflow-x: auto; border-radius: var(--ctoc-radius); border: 1px solid var(--ctoc-line); background: #fff; }
+.ctoc-table { width: 100%; border-collapse: collapse; min-width: 480px; }
+.ctoc-table th { background: var(--ctoc-green); color: #fff; font-family: var(--ctoc-head); text-transform: uppercase; letter-spacing: .06em; font-size: 1.15rem; text-align: left; padding: 12px 16px; }
+.ctoc-table td { padding: 14px 16px; border-top: 1px solid var(--ctoc-line); color: var(--ctoc-muted); }
+.ctoc-table td:first-child { font-family: var(--ctoc-head); font-size: 1.4rem; text-transform: uppercase; color: var(--ctoc-green); }
+.ctoc-note { color: var(--ctoc-muted); font-size: .92rem; margin-top: 12px !important; }
+.ctoc-checks { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.ctoc-check { background: #fff; border: 1px solid var(--ctoc-line); border-radius: var(--ctoc-radius); padding: 22px 24px; border-top: 5px solid var(--ctoc-orange); }
+.ctoc-check h3 { font-size: 1.7rem; color: var(--ctoc-green); margin-bottom: 10px !important; }
+.ctoc-check ul { list-style: none; margin: 0; padding: 0; }
+.ctoc-check li { position: relative; padding: 7px 0 7px 28px; color: var(--ctoc-muted); }
+.ctoc-check li::before { content: ""; position: absolute; left: 0; top: 13px; width: 14px; height: 8px; border-left: 3px solid var(--ctoc-orange); border-bottom: 3px solid var(--ctoc-orange); transform: rotate(-45deg) scale(.9); }
+@media (max-width: 520px) {
+  .ctoc-table { min-width: 0; }
+  .ctoc-table th, .ctoc-table td { padding: 10px 8px; font-size: .9rem; }
+  .ctoc-table th { font-size: 1rem; }
+  .ctoc-table td:first-child { font-size: 1.15rem; }
+}

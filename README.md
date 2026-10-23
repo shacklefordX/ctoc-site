@@ -31,3 +31,9 @@ One-time: repo Settings → Pages → Source: Deploy from a branch → `main` / 
 ## Notes
 - Code Injection requires a Squarespace Business plan or higher.
 - Keep the repo free of secrets; everything here is public.
+
+## Adding a page (touch Squarespace once)
+1. In Squarespace add a new empty page and one Code Block (Display Source OFF) containing:
+   `<div id="ctoc-page" data-page="SLUG"></div>` (see `snippets/page-block.html`). Add it to the nav.
+2. Create `data/pages/SLUG.json` here. Block types: `text`, `table`, `cards`, `checklist`, `steps`, `faq`, `races`, `photos`, `cta`.
+3. All later edits are just commits to that JSON file. `data/pages/new-to-tri.json` is the example.

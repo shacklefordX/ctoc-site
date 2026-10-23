@@ -2,6 +2,7 @@
    Squarespace only needs these mount points (added once, never edited again):
    - <div id="ctoc-home"></div>      : the whole home page
    - <div id="ctoc-workouts"></div>  : the schedule page
+   - <div id="ctoc-page" data-page="SLUG"></div> : any other page; content is data/pages/SLUG.json
    A footer is added automatically to every page.
    All copy lives in data/content.json; sessions live in data/workouts.json. */
 (function () {
@@ -324,6 +325,65 @@
     heroInit(mount);
   }
 
+
+  /* ---------- generic content pages (data/pages/<slug>.json) ---------- */
+  function pageBlock(b) {
+    var h = "";
+    var head = b.title ? '<div class="ctoc-sechead">' + (b.eyebrow ? '<span class="ctoc-eyebrow">' + esc(b.eyebrow) + "</span>" : "") +
+      '<h2 class="ctoc-title">' + esc(b.title) + "</h2>" + (b.intro ? '<p class="ctoc-lede">' + esc(b.intro) + "</p>" : "") + "</div>" : "";
+    var open = '<section class="ctoc-sec' + (b.tint ? " ctoc-sec--tint" : "") + '"' + (b.id ? ' id="' + esc(b.id) + '"' : "") + '><div class="ctoc-wrap ctoc-reveal">' + head;
+    var close = "</div></section>";
+    switch (b.type) {
+      case "text":
+        h = '<div class="ctoc-prose">' + (b.paragraphs || []).map(function (t) { return "<p>" + esc(t) + "</p>"; }).join("") + "</div>";
+        break;
+      case "table":
+        h = '<div class="ctoc-tablewrap"><table class="ctoc-table"><thead><tr>' + (b.columns || []).map(function (x) { return "<th>" + esc(x) + "</th>"; }).join("") +
+          "</tr></thead><tbody>" + (b.rows || []).map(function (r) {
+            return "<tr>" + r.map(function (x, i) { return '<td data-l="' + esc((b.columns || [])[i]) + '">' + esc(x) + "</td>"; }).join("") + "</tr>";
+          }).join("") + "</tbody></table></div>" + (b.note ? '<p class="ctoc-note">' + esc(b.note) + "</p>" : "");
+        break;
+      case "cards":
+        h = '<div class="ctoc-trio">' + (b.items || []).map(function (i) {
+          return '<div class="ctoc-trio__item"' + (i.icon ? ' data-k="' + esc(i.icon) + '"' : "") + ">" + (i.icon && ICONS[i.icon] ? '<div class="ctoc-ico">' + ICONS[i.icon] + "</div>" : "") +
+            "<h3>" + esc(i.title) + "</h3><p>" + esc(i.text) + "</p></div>";
+        }).join("") + "</div>";
+        break;
+      case "checklist":
+        h = '<div class="ctoc-checks">' + (b.groups || []).map(function (g) {
+          return '<div class="ctoc-check"><h3>' + esc(g.title) + "</h3><ul>" + (g.items || []).map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ul></div>";
+        }).join("") + "</div>";
+        break;
+      case "steps":
+        h = '<div class="ctoc-steps">' + (b.items || []).map(function (s) { return '<div class="ctoc-step"><h3>' + esc(s.title) + "</h3><p>" + esc(s.text) + "</p></div>"; }).join("") + "</div>";
+        break;
+      case "faq":
+        h = '<div class="ctoc-faq">' + (b.items || []).map(function (f) { return "<details><summary>" + esc(f.q) + "</summary><p>" + esc(f.a) + "</p></details>"; }).join("") + "</div>";
+        break;
+      case "races":
+        h = '<div class="ctoc-races">' + (b.items || []).map(function (r) {
+          return '<div class="ctoc-race"><span class="ctoc-race__when">' + esc(r.when) + '</span><div><div class="ctoc-race__name">' + esc(r.name) + '</div><div class="ctoc-race__meta">' + esc(r.meta) + "</div></div>" +
+            (safeUrl(r.link) ? '<a href="' + esc(r.link) + '" target="_blank" rel="noopener">Race info &rarr;</a>' : "") + "</div>";
+        }).join("") + "</div>";
+        break;
+      case "photos":
+        h = '<div class="ctoc-photos">' + (b.items || []).map(function (p) {
+          return '<figure><img loading="lazy" alt="' + esc(p.alt) + '" src="' + esc(asset(p.src)) + '">' + (p.caption ? "<figcaption>" + esc(p.caption) + "</figcaption>" : "") + "</figure>";
+        }).join("") + "</div>";
+        break;
+      case "cta":
+        return '<section class="ctoc-sec ctoc-cta"><div class="ctoc-wrap ctoc-reveal"><h2>' + esc(b.title) + "</h2>" + (b.text ? "<p>" + esc(b.text) + "</p>" : "") + btn(b.button) + "</div></section>";
+      default: return "";
+    }
+    return open + h + close;
+  }
+  function renderPage(mount, p) {
+    var html = '<div class="ctoc-page ctoc-page--content"><div class="ctoc-wrap"><div class="ctoc-sechead"><span class="ctoc-eyebrow">' + esc(p.eyebrow || "") + '</span><h1 class="ctoc-title">' +
+      esc(p.title || "") + "</h1>" + (p.intro ? '<p class="ctoc-lede">' + esc(p.intro) + "</p>" : "") + "</div></div>" +
+      (p.blocks || []).map(pageBlock).join("") + "</div>";
+    mount.innerHTML = html;
+  }
+
   /* ---------- footer ---------- */
   function renderFooter(c) {
     var f = c.footer;
@@ -353,7 +413,8 @@
   function init() {
     var home = document.getElementById("ctoc-home");
     var sched = document.getElementById("ctoc-workouts");
-    place(home); place(sched);
+    var pg = document.getElementById("ctoc-page");
+    place(home); place(sched); place(pg);
 
     var content = getJSON(base + "data/content.json").catch(function () { return null; });
     var work = (home || sched)
@@ -371,6 +432,11 @@
       if (sched) {
         if (data) renderSchedule(sched, data, c);
         else sched.innerHTML = '<div class="ctoc-empty">The schedule is unavailable right now. Check our Strava club for the latest.</div>';
+      }
+      if (pg) {
+        var slug = (pg.getAttribute("data-page") || "").replace(/[^a-z0-9-]/gi, "");
+        getJSON(base + "data/pages/" + slug + ".json").then(function (p) { renderPage(pg, p); reveal(pg); })
+          .catch(function () { pg.innerHTML = '<div class="ctoc-empty">This page is unavailable right now.</div>'; });
       }
       if (c) renderFooter(c);
       reveal(document);

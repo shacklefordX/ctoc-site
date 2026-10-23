@@ -1,0 +1,161 @@
+{
+  "eyebrow": "New to triathlon?",
+  "title": "Your first tri starts here",
+  "intro": "You don't need to be fast, fit or own a fancy bike. Here's what a triathlon is, what to expect, and how to get started with us.",
+  "blocks": [
+    {
+      "type": "text",
+      "eyebrow": "The basics",
+      "title": "What is a triathlon?",
+      "paragraphs": [
+        "A triathlon is three sports back to back: swim, then bike, then run. The clock keeps running through the two transitions, where you switch gear in a designated area.",
+        "Races come in many lengths, and most people start with a sprint. Plenty of first-timers finish a sprint after a couple of months of steady training."
+      ]
+    },
+    {
+      "type": "table",
+      "tint": true,
+      "eyebrow": "Race distances",
+      "title": "Pick a distance",
+      "columns": [
+        "Race",
+        "Swim",
+        "Bike",
+        "Run"
+      ],
+      "rows": [
+        [
+          "Sprint",
+          "750 m",
+          "20 km (12.4 mi)",
+          "5 km (3.1 mi)"
+        ],
+        [
+          "Olympic",
+          "1,500 m",
+          "40 km (24.8 mi)",
+          "10 km (6.2 mi)"
+        ],
+        [
+          "Half (70.3)",
+          "1.2 mi",
+          "56 mi",
+          "13.1 mi"
+        ],
+        [
+          "Full",
+          "2.4 mi",
+          "112 mi",
+          "26.2 mi"
+        ]
+      ],
+      "note": "Distances vary a little from race to race. Always check the race's own course info."
+    },
+    {
+      "type": "checklist",
+      "eyebrow": "Gear",
+      "title": "What you actually need",
+      "intro": "Start with what you have. You can upgrade later, if you ever want to.",
+      "groups": [
+        {
+          "title": "Swim",
+          "items": [
+            "Swimsuit or tri kit",
+            "Goggles that fit and don't leak",
+            "Swim cap (the race usually provides one)",
+            "Wetsuit only if the race is cold-water and you want one"
+          ]
+        },
+        {
+          "title": "Bike",
+          "items": [
+            "Any road, hybrid or mountain bike in good working order",
+            "A helmet that fits (required in races)",
+            "Water bottle",
+            "Spare tube, pump or CO2 and tire levers"
+          ]
+        },
+        {
+          "title": "Run",
+          "items": [
+            "Comfortable running shoes",
+            "Hat or visor",
+            "Race belt for your bib number (or safety pins)",
+            "Sunglasses and sunscreen"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "steps",
+      "tint": true,
+      "eyebrow": "Your first race day",
+      "title": "How it goes",
+      "items": [
+        {
+          "title": "Set up",
+          "text": "Arrive early, rack your bike, and lay out your gear in the transition area. Walk through the swim exit, bike out and run out so you know the way."
+        },
+        {
+          "title": "Swim",
+          "text": "Start easy and find your rhythm. It's fine to float, flip to your back or hold a buoy for a moment. Nobody minds."
+        },
+        {
+          "title": "Bike and run",
+          "text": "Helmet on before you touch the bike. Drink on the bike, ease into the run, and finish with a smile. Your legs will feel odd for the first few minutes, and that's normal."
+        }
+      ]
+    },
+    {
+      "type": "cards",
+      "eyebrow": "Worries",
+      "title": "Everyone has them",
+      "items": [
+        {
+          "icon": "swim",
+          "title": "\"I'm not a strong swimmer.\"",
+          "text": "Plenty of people aren't. Pool swims with a lane to yourself are a great place to build comfort before open water."
+        },
+        {
+          "icon": "bike",
+          "title": "\"I don't have a tri bike.\"",
+          "text": "You don't need one. Any bike in good shape will get you through a first race."
+        },
+        {
+          "icon": "run",
+          "title": "\"What if I'm last?\"",
+          "text": "Someone always has the best seat in the house. Finishing a triathlon at all puts you ahead of everyone on the couch."
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "tint": true,
+      "eyebrow": "Questions",
+      "title": "Quick answers",
+      "items": [
+        {
+          "q": "How long should I train before a first sprint?",
+          "a": "Many beginners train for 8 to 12 weeks with 3 to 4 sessions a week. If you can already swim a few lengths, ride an hour and jog 20 to 30 minutes, you are most of the way there."
+        },
+        {
+          "q": "What is a brick workout?",
+          "a": "A bike ride followed straight away by a short run, so your legs get used to the switch."
+        },
+        {
+          "q": "Can I do group sessions as a beginner?",
+          "a": "Yes. Come to a session, go at your own pace, and introduce yourself. Check the schedule for the next one."
+        }
+      ]
+    },
+    {
+      "type": "cta",
+      "title": "Ready to try one?",
+      "text": "Pick a session from the schedule and come say hi.",
+      "button": {
+        "label": "See group workouts",
+        "href": "/workouts"
+      }
+    }
+  ]
+}
