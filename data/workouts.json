@@ -1,0 +1,35 @@
+{
+  "sample": true,
+  "workouts": [
+    {
+      "day": "Tuesday",
+      "discipline": "Run",
+      "title": "Greenbelt Easy Run",
+      "time": "6:00 AM",
+      "location": "Boise Greenbelt (meeting spot TBD)",
+      "level": "All paces",
+      "notes": "Conversational pace, 4-6 miles. Groups form at the start.",
+      "link": ""
+    },
+    {
+      "day": "Thursday",
+      "discipline": "Swim",
+      "title": "Masters-Style Swim",
+      "time": "6:00 AM",
+      "location": "Pool TBD",
+      "level": "All levels",
+      "notes": "Lane groups by speed. Bring goggles and a kickboard.",
+      "link": ""
+    },
+    {
+      "day": "Saturday",
+      "discipline": "Bike",
+      "title": "Saturday Group Ride",
+      "time": "8:00 AM",
+      "location": "Start location TBD",
+      "level": "Two pace groups",
+      "notes": "Helmets required. No-drop for the beginner group.",
+      "link": ""
+    }
+  ]
+}
