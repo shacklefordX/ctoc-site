@@ -426,7 +426,7 @@
   }
   function readTime(text) { return Math.max(1, Math.round(String(text).split(/\s+/).length / 200)) + " min read"; }
   function postCard(p) {
-    return '<a class="ctoc-post" href="?post=' + encodeURIComponent(p.slug) + '">' +
+    return '<a class="ctoc-post" data-tag="' + esc(p.tag || "") + '" href="?post=' + encodeURIComponent(p.slug) + '">' +
       (p.image ? '<img loading="lazy" alt="" src="' + esc(asset(p.image)) + '">' : "") +
       '<div class="ctoc-post__body"><span class="ctoc-newscard__date">' + esc(dateNice(p.date) || p.date) + (p.tag ? " · " + esc(p.tag) : "") + "</span><h3>" + esc(p.title) +
       "</h3><p>" + esc(p.excerpt) + '</p><span class="ctoc-post__more">Read the post &rarr;</span></div></a>';
@@ -439,7 +439,19 @@
     if (!post) {
       mount.innerHTML = '<div class="ctoc-page"><div class="ctoc-wrap"><div class="ctoc-sechead"><span class="ctoc-eyebrow">' + esc((idx && idx.eyebrow) || "Blog") + '</span><h1 class="ctoc-title">' + esc(title) + "</h1>" +
         ((idx && idx.intro) ? '<p class="ctoc-lede">' + esc(idx.intro) + "</p>" : "") + "</div>" +
-        (posts.length ? '<div class="ctoc-posts">' + posts.map(postCard).join("") + "</div>" : '<div class="ctoc-empty">No posts yet.</div>') + "</div></div>";
+        (function () {
+          var tags = Array.from(new Set(posts.map(function (p) { return p.tag; }).filter(Boolean)));
+          var chips = tags.length > 1 ? '<div class="ctoc-filters" role="group" aria-label="Filter posts"><button type="button" class="ctoc-filter" data-t="" aria-pressed="true">All</button>' +
+            tags.map(function (t) { return '<button type="button" class="ctoc-filter" data-t="' + esc(t) + '" aria-pressed="false">' + esc(t) + "</button>"; }).join("") + "</div>" : "";
+          return chips + (posts.length ? '<div class="ctoc-posts">' + posts.map(postCard).join("") + "</div>" : '<div class="ctoc-empty">No posts yet.</div>');
+        })() + "</div></div>";
+      Array.prototype.forEach.call(mount.querySelectorAll(".ctoc-filter"), function (b) {
+        b.addEventListener("click", function () {
+          var t = b.getAttribute("data-t");
+          Array.prototype.forEach.call(mount.querySelectorAll(".ctoc-filter"), function (x) { x.setAttribute("aria-pressed", String(x === b)); });
+          Array.prototype.forEach.call(mount.querySelectorAll(".ctoc-post"), function (c) { c.style.display = !t || c.getAttribute("data-tag") === t ? "" : "none"; });
+        });
+      });
       return;
     }
     mount.innerHTML = '<div class="ctoc-page"><div class="ctoc-wrap"><article class="ctoc-article"><a class="ctoc-back" href="' + esc(location.pathname) + '">&larr; All posts</a><span class="ctoc-eyebrow">' +

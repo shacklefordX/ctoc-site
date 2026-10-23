@@ -4,6 +4,13 @@
   "intro": "Training tips, local spots and the occasional bad triathlon joke.",
   "posts": [
     {
+      "slug": "tri-suit-guide",
+      "title": "Do you need a tri suit? A beginner's guide",
+      "date": "2026-10-23",
+      "tag": "Gear",
+      "excerpt": "One outfit for all three sports. What to look for, what to test, and when you can skip it."
+    },
+    {
       "slug": "beginner-gear-guide",
       "title": "The beginner's gear guide: what to buy first, and what to skip",
       "date": "2026-10-23",
