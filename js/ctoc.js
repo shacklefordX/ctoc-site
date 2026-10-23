@@ -1,7 +1,10 @@
 /* City of Trees Triathlon Club
-   - #ctoc-workouts : full schedule with discipline filters
-   - #ctoc-next     : "Next up" strip (the next 2 upcoming sessions)
-   Data comes from data/workouts.json. A session is either dated ("date": "YYYY-MM-DD",
+   Squarespace only needs these mount points (added once, never edited again):
+   - <div id="ctoc-home"></div>      : whole home page (hero, next up, steps, photos, FAQ)
+   - <div id="ctoc-workouts"></div>  : full schedule with discipline filters
+   - <div id="ctoc-next"></div>      : optional stand-alone "next up" strip
+   A footer band is added automatically to every page (data/content.json -> footer.enabled).
+   All copy lives in data/content.json; sessions live in data/workouts.json. A session is either dated ("date": "YYYY-MM-DD",
    shown until that day ends) or recurring ("day": "Tuesday"). Safe to load on every page. */
 (function () {
   var DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -99,21 +102,87 @@
       '<div class="ctoc-cards">' + items.map(card).join("") + "</div>";
   }
 
+  function asset(p) { return /^https?:\/\//i.test(p || "") ? p : base + String(p || "").replace(/^\//, ""); }
+  function btn(b, cls) {
+    if (!b || !b.label) return "";
+    var ext = /^https?:\/\//i.test(b.href || "");
+    return '<a class="ctoc-btn' + (cls ? " " + cls : "") + '" href="' + esc(b.href) + '"' +
+      (ext ? ' target="_blank" rel="noopener"' : "") + ">" + esc(b.label) + "</a>";
+  }
+
+  function renderHome(mount, c) {
+    var h = c.hero || {}, html = "";
+    html += '<div class="ctoc-hero"><div>' +
+      (h.logo ? '<img class="ctoc-hero__mark" alt="" src="' + esc(asset(h.logo)) + '">' : "") +
+      "<h1>" + (h.headline || []).map(esc).join("<br>") + "</h1>" +
+      "<p>" + esc(h.text) + "</p>" +
+      '<div class="ctoc-hero__actions">' + btn(h.primary) + btn(h.secondary, "ctoc-btn--outline") + "</div></div>" +
+      (h.photo ? '<div class="ctoc-hero__photo"><img alt="' + esc(h.photo.alt) + '" src="' + esc(asset(h.photo.src)) + '"></div>' : "") +
+      "</div>";
+    html += '<div id="ctoc-next"></div>';
+    if ((c.steps || []).length) {
+      html += '<div class="ctoc-steps">' + c.steps.map(function (s) {
+        return '<div class="ctoc-step"><h3>' + esc(s.title) + "</h3><p>" + esc(s.text) + "</p></div>";
+      }).join("") + "</div>";
+    }
+    if ((c.photos || []).length) {
+      html += '<div class="ctoc-photos">' + c.photos.map(function (p) {
+        return '<figure><img loading="lazy" alt="' + esc(p.alt) + '" src="' + esc(asset(p.src)) + '">' +
+          (p.caption ? "<figcaption>" + esc(p.caption) + "</figcaption>" : "") + "</figure>";
+      }).join("") + "</div>";
+    }
+    if ((c.faq || []).length) {
+      html += '<div class="ctoc-faq"><h2>Questions</h2>' + c.faq.map(function (f) {
+        return "<details><summary>" + esc(f.q) + "</summary><p>" + esc(f.a) + "</p></details>";
+      }).join("") + "</div>";
+    }
+    mount.innerHTML = html;
+  }
+
+  function renderFooter(c) {
+    var f = c.footer;
+    if (!f || f.enabled === false || document.getElementById("ctoc-site-footer")) return;
+    var el = document.createElement("div");
+    el.id = "ctoc-site-footer";
+    el.className = "ctoc-footer";
+    el.innerHTML = (f.logo ? '<img alt="City of Trees Triathlon Club" src="' + esc(asset(f.logo)) + '">' : "") +
+      (f.tagline ? "<p>" + esc(f.tagline) + "</p>" : "") + btn(f.button) +
+      (f.copyright ? "<small>" + esc(f.copyright) + "</small>" : "");
+    var slot = document.getElementById("ctoc-footer");
+    if (slot) { slot.appendChild(el); return; }
+    var host = document.querySelector("footer");
+    if (host && host.parentNode) host.parentNode.insertBefore(el, host);
+    else document.body.appendChild(el);
+  }
+
+  function getJSON(url) {
+    return fetch(url).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); });
+  }
+
   function init() {
+    var home = document.getElementById("ctoc-home");
     var sched = document.getElementById("ctoc-workouts");
-    var next = document.getElementById("ctoc-next");
-    if (!sched && !next) return;
-    var src = (sched || next).getAttribute("data-src") || base + "data/workouts.json";
-    fetch(src)
-      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-      .then(function (data) {
-        if (sched) renderSchedule(sched, data);
-        if (next) renderNext(next, data);
-      })
-      .catch(function () {
-        var m = sched || next;
-        m.innerHTML = '<div class="ctoc-empty">The schedule is unavailable right now. Check our Strava club for the latest.</div>';
-      });
+    var wantsFooter = true;
+
+    var content = getJSON(base + "data/content.json").catch(function () { return null; });
+    var work = (home || sched || document.getElementById("ctoc-next"))
+      ? getJSON((sched && sched.getAttribute("data-src")) || base + "data/workouts.json").catch(function () { return null; })
+      : Promise.resolve(null);
+
+    Promise.all([content, work]).then(function (res) {
+      var c = res[0], data = res[1];
+      if (home) {
+        if (c) renderHome(home, c);
+        else home.innerHTML = '<div class="ctoc-empty">This page is unavailable right now.</div>';
+      }
+      var next = document.getElementById("ctoc-next");
+      if (next && data) renderNext(next, data);
+      if (sched) {
+        if (data) renderSchedule(sched, data);
+        else sched.innerHTML = '<div class="ctoc-empty">The schedule is unavailable right now. Check our Strava club for the latest.</div>';
+      }
+      if (c && wantsFooter) renderFooter(c);
+    });
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);

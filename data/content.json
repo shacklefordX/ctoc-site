@@ -1,0 +1,32 @@
+{
+  "hero": {
+    "headline": ["Train together.", "Race together."],
+    "text": "City of Trees Triathlon Club brings swimmers, cyclists, and runners across the Treasure Valley together, whether it's your first sprint or your next Ironman.",
+    "primary": { "label": "Join the Team", "href": "/join" },
+    "secondary": { "label": "See Group Workouts", "href": "/workouts" },
+    "logo": "logo/ctoc-mark.svg",
+    "photo": { "src": "images/finish.jpg", "alt": "A triathlete crossing the finish line with arms out" }
+  },
+  "steps": [
+    { "title": "Join the team", "text": "Fill out the quick form and join our Strava club so you see every session." },
+    { "title": "Pick a session", "text": "Check the schedule for the next ride, run, or swim and where it starts." },
+    { "title": "Show up", "text": "Meet the group, move at your own pace, and make it a habit." }
+  ],
+  "photos": [
+    { "src": "images/bike.jpg", "alt": "A cyclist in an aero position on a road bike", "caption": "Ride" },
+    { "src": "images/run.jpg", "alt": "A runner mid-stride during a race", "caption": "Run" }
+  ],
+  "faq": [
+    { "q": "Do I need to be an experienced triathlete?", "a": "No. Beginners are welcome. Come to a session, meet people, and go at your own pace." },
+    { "q": "Where do sessions start?", "a": "Every session on the schedule lists its start location." },
+    { "q": "What should I bring?", "a": "Water, and the gear for the sport: a helmet and a bike in good working order for rides, and comfortable running shoes for runs." },
+    { "q": "How do I stay in the loop?", "a": "Join the club on Strava and check the schedule page, which is updated whenever new sessions are added." }
+  ],
+  "footer": {
+    "enabled": true,
+    "logo": "logo/ctoc-lockup-light.svg",
+    "tagline": "Triathlon training and community in the Treasure Valley.",
+    "button": { "label": "Join our Strava club", "href": "https://strava.app.link/RnvyvO4At7b" },
+    "copyright": "© 2026 City of Trees Triathlon Club"
+  }
+}

@@ -9,9 +9,10 @@ jobs:
   purge:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: Purge CDN files
         run: |
-          for f in css/ctoc.css js/ctoc.js data/workouts.json; do
+          for f in css/ctoc.css js/ctoc.js data/*.json images/* logo/*; do
             echo "Purging $f"
             curl -fsS "https://purge.jsdelivr.net/gh/${{ github.repository }}@main/$f" || true
             echo
