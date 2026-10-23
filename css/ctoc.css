@@ -116,7 +116,7 @@ html { scroll-behavior: smooth; }
   gap: clamp(28px, 5vw, 72px); padding: clamp(44px, 8vw, 100px) 0 clamp(70px, 10vw, 120px);
 }
 .ctoc-hero .ctoc-eyebrow { color: var(--ctoc-orange); }
-#ctoc-home .ctoc-hero h1 { font-size: clamp(3rem, 7.4vw, 5.8rem); color: #fff; margin-bottom: .3em; }
+#ctoc-home .ctoc-hero h1 { font-size: clamp(2.7rem, 5.6vw, 5.2rem); color: #fff; margin-bottom: .3em; }
 #ctoc-home .ctoc-hero h1 span { color: var(--ctoc-orange); }
 .ctoc-hero__text { max-width: 540px; font-size: clamp(1.02rem, 2vw, 1.2rem); color: rgba(255, 255, 255, .9); margin-bottom: 1.8em !important; }
 .ctoc-hero__actions { display: flex; flex-wrap: wrap; gap: 14px; }
@@ -328,8 +328,8 @@ html { scroll-behavior: smooth; }
 /* =========================================================
    v3 additions: quick tiles, countdown, news, spotlight, sponsors, video
    ========================================================= */
-.ctoc-sec--tiles { padding-bottom: 0; }
-.ctoc-tiles { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); margin-top: -64px; position: relative; z-index: 2; }
+.ctoc-sec--tiles { padding-bottom: 0; padding-top: clamp(28px, 4vw, 48px); }
+.ctoc-tiles { display: grid; gap: 16px; grid-template-columns: repeat(4, 1fr); }
 .ctoc-tile {
   display: flex; flex-direction: column; gap: 6px; padding: 24px 22px 20px; background: #fff; border-radius: var(--ctoc-radius);
   border: 1px solid var(--ctoc-line); box-shadow: 0 12px 30px rgba(20, 52, 39, .12); text-decoration: none !important; color: var(--ctoc-ink) !important;
@@ -393,7 +393,9 @@ html { scroll-behavior: smooth; }
   .ctoc-hero__text { margin-left: auto; margin-right: auto; }
   .ctoc-hero__actions, .ctoc-hero__chips { justify-content: center; }
   .ctoc-hero__stack { width: min(74%, 320px); margin: 4px auto 6px; order: -1; }
-  .ctoc-tiles { margin-top: -50px; }
   .ctoc-countdown { margin: 0; }
   .ctoc-next__head { flex-wrap: wrap; }
 }
+
+@media (max-width: 980px) { .ctoc-tiles { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px) { .ctoc-tiles { grid-template-columns: 1fr; } }
