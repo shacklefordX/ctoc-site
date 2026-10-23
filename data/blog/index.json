@@ -4,6 +4,13 @@
   "intro": "Training tips, local spots and the occasional bad triathlon joke.",
   "posts": [
     {
+      "slug": "beginner-gear-guide",
+      "title": "The beginner's gear guide: what to buy first, and what to skip",
+      "date": "2026-10-23",
+      "tag": "Gear",
+      "excerpt": "You don't need a second mortgage to race. Here's the order to buy things in, and what you can ignore."
+    },
+    {
       "slug": "tri-jargon-decoded",
       "title": "Triathlon jargon, decoded",
       "date": "2026-10-23",
