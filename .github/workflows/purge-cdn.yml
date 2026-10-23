@@ -1,0 +1,18 @@
+name: Purge jsDelivr cache
+
+# On every push to main, clear the CDN cache so the live site updates within about a minute.
+on:
+  push:
+    branches: [main]
+
+jobs:
+  purge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Purge CDN files
+        run: |
+          for f in css/ctoc.css js/ctoc.js data/workouts.json; do
+            echo "Purging $f"
+            curl -fsS "https://purge.jsdelivr.net/gh/${{ github.repository }}@main/$f" || true
+            echo
+          done
