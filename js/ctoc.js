@@ -415,11 +415,19 @@
       var l = lines[i], m;
       if (!l.trim()) { i++; continue; }
       if ((m = /^(#{1,3})\s+(.*)$/.exec(l))) { var hl = Math.max(2, m[1].length); out.push("<h" + hl + ">" + inline(m[2]) + "</h" + hl + ">"); i++; continue; }
+      if (/^\s*\|.*\|\s*$/.test(l) && /^\s*\|[\s:|-]+\|\s*$/.test(lines[i + 1] || "")) {
+        var cells = function (r) { return r.trim().replace(/^\||\|$/g, "").split("|").map(function (x) { return inline(x.trim()); }); };
+        var th = cells(l), rows = []; i += 2;
+        while (i < lines.length && /^\s*\|.*\|\s*$/.test(lines[i])) rows.push(cells(lines[i++]));
+        out.push('<div class="ctoc-tablewrap"><table class="ctoc-table"><thead><tr>' + th.map(function (x) { return "<th>" + x + "</th>"; }).join("") + "</tr></thead><tbody>" +
+          rows.map(function (r) { return "<tr>" + r.map(function (x) { return "<td>" + x + "</td>"; }).join("") + "</tr>"; }).join("") + "</tbody></table></div>");
+        continue;
+      }
       if (/^---+\s*$/.test(l)) { out.push("<hr>"); i++; continue; }
       if (/^>\s?/.test(l)) { var q = []; while (i < lines.length && /^>\s?/.test(lines[i])) q.push(lines[i++].replace(/^>\s?/, "")); out.push("<blockquote>" + inline(q.join(" ")) + "</blockquote>"); continue; }
       if (/^\s*[-*]\s+/.test(l)) { var u = []; while (i < lines.length && /^\s*[-*]\s+/.test(lines[i])) u.push("<li>" + inline(lines[i++].replace(/^\s*[-*]\s+/, "")) + "</li>"); out.push("<ul>" + u.join("") + "</ul>"); continue; }
       if (/^\s*\d+\.\s+/.test(l)) { var o = []; while (i < lines.length && /^\s*\d+\.\s+/.test(lines[i])) o.push("<li>" + inline(lines[i++].replace(/^\s*\d+\.\s+/, "")) + "</li>"); out.push("<ol>" + o.join("") + "</ol>"); continue; }
-      var para = []; while (i < lines.length && lines[i].trim() && !/^(#{1,3}\s|>|---|\s*[-*]\s|\s*\d+\.\s)/.test(lines[i])) para.push(lines[i++]);
+      var para = []; while (i < lines.length && lines[i].trim() && !/^(#{1,3}\s|>|---|\s*[-*]\s|\s*\d+\.\s|\s*\|)/.test(lines[i])) para.push(lines[i++]);
       out.push("<p>" + inline(para.join(" ")) + "</p>");
     }
     return out.join("\n");

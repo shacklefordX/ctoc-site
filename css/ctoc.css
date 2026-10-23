@@ -460,3 +460,7 @@ html { scroll-behavior: smooth; }
 .ctoc-postcta h3 { color: #fff; font-size: 2rem; margin-bottom: 6px !important; }
 .ctoc-postcta p { color: rgba(255, 255, 255, .88); margin-bottom: 18px !important; }
 .ctoc-article .ctoc-eyebrow { display: block; }
+.ctoc-prose2 .ctoc-tablewrap { margin: 0 0 22px; }
+.ctoc-prose2 .ctoc-table { min-width: 0; }
+.ctoc-prose2 .ctoc-table td, .ctoc-prose2 .ctoc-table th { font-size: 1rem; }
+.ctoc-prose2 .ctoc-table td:first-child { font-family: inherit; font-size: 1rem; text-transform: none; color: var(--ctoc-green); font-weight: 600; }
