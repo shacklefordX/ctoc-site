@@ -143,10 +143,6 @@
         "href": "/workouts"
       },
       {
-        "label": "New to tri",
-        "href": "/new-to-tri"
-      },
-      {
         "label": "Blog",
         "href": "/blog"
       },
@@ -187,8 +183,8 @@
       "icon": "flag",
       "title": "New to triathlon?",
       "text": "Start here. Quick answers to the usual first-timer questions.",
-      "href": "/new-to-tri",
-      "cta": "Start here"
+      "href": "#ctoc-faq",
+      "cta": "Read the FAQ"
     },
     {
       "icon": "users",

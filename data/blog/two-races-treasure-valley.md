@@ -55,7 +55,7 @@ It's also a big step. Most people take months to build up to a half distance, wh
 The two races are 49 days apart, which makes the first a natural tune-up for the second.
 
 - **Now to March:** build a base. Easy swimming, riding and running, lots of Zone 2, and a few Saturday group rides to get the miles in.
-- **April to early June:** the build. This is when the [8-week sprint plan](/training-plans) fits, working back from June 5.
+- **April to early June:** the build. This is when the 8-week sprint plan fits, working back from June 5.
 - **June 5:** Treasure Valley Triathlon. Race it hard or race it as practice. Either way you'll learn how your nutrition, transitions and nerves hold up.
 - **June 6 to July 24:** a final seven-week build, with long rides and a taper in the last stretch.
 - **July 24:** IRONMAN 70.3 Boise.
