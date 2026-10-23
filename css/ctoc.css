@@ -40,8 +40,8 @@
   text-transform: uppercase !important;
 }
 #header .header-nav-item--active a { box-shadow: inset 0 -3px 0 var(--ctoc-orange); }
-#header .header-burger-btn span, #header .burger-inner span { background: var(--ctoc-green) !important; }
-#header svg { color: var(--ctoc-green); }
+#header .top-bun, #header .patty, #header .bottom-bun { background: var(--ctoc-green) !important; }
+#header svg, #header .header-actions svg { color: var(--ctoc-green) !important; fill: var(--ctoc-green) !important; }
 
 /* =========================================================
    Base
